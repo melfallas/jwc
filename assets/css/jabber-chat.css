@@ -1,0 +1,929 @@
+.jabberwerx.auth_form{
+    background: none;
+    border: none;
+}
+
+md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar) {
+    background-color: #337ab7;
+    color: rgba(255,255,255,0.87);
+}
+
+md-toolbar {
+    box-sizing: border-box;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    position: relative;
+    z-index: 2;
+    font-size: 20px;
+    min-height: 6%;
+    width: 100%;
+}
+
+.md-toolbar-tools {
+    font-size: 20px;
+    letter-spacing: .005em;
+    box-sizing: border-box;
+    font-weight: 400;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    padding: 10px 16px;
+    margin: 0;
+}
+
+.md-button.md-icon-button {
+    margin: 0 6px;
+    height: 100%;
+    min-width: 0;
+    line-height: 24px;
+    padding: 10px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+.md-title{
+    width: 100%;
+    height: 100%;
+}
+
+#loader{
+    display: none;
+}
+
+.buttondemoBasicUsage section {
+    background: #f7f7f7;
+    border-radius: 3px;
+    text-align: center;
+    margin: 1em;
+    position: relative !important;
+    padding-bottom: 10px;
+}
+  
+.buttondemoBasicUsage md-content {
+    margin-right: 7px; }
+  
+.buttondemoBasicUsage section .md-button {
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+  
+.buttondemoBasicUsage .label {
+    position: absolute;
+    bottom: 5px;
+    left: 7px;
+    font-size: 14px;
+    opacity: 0.54;
+}
+
+.authDiv{
+    width: 80%;
+    margin: 0px auto;
+    text-align: center;
+    margin-top: 10%;
+}
+
+.inputContainer{
+    margin-bottom: 3%;
+}
+
+.jabber-select {
+    width: 100%;
+}
+
+#exTab1 .tab-content {
+    color : gray;
+    padding: 5px 20px;
+    border: 1px solid lightgray;
+}
+
+#exTab1 .nav-pills > li > a {
+    border-radius: 0;
+    border: 1px solid lightgray;
+}
+
+.welcome-title{
+    top: 35%;
+    position: absolute;
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.btn{
+    padding: 5px 5px;
+}
+
+.login-btn{
+    padding: 6px 12px;
+    background-color: #337ab7;
+    border-color: #337ab7;
+    color:white;
+}
+
+.add_contact_btn{
+    background-color: #337ab7;
+    border-color: #337ab7;
+    color:white;
+}
+
+.add_contact_btn:active {
+    color: white;
+}
+
+.add_contact_btn:hover{
+    color:lightgray;
+    cursor: pointer;
+}
+
+.remove_contact_btn{
+    background-color: #337ab7;
+    border-color: #337ab7;
+    color:white;
+}
+
+.my_status{
+    width:100%;
+}
+
+.my_presence{
+    margin-bottom: 2%;
+    margin-top: 2%;
+}
+
+.explorator{
+    width:100%;
+}
+
+.my_actions{
+    margin-bottom: 2%;
+}
+
+.my_roster{
+    border: 1px #dfdede solid;
+}
+
+.composition{
+    width:100%;
+}
+
+.my_tabs{
+    width:100%;
+}
+
+.my_muc_tabs{
+    width:100%;
+}
+
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    text-align: center;
+    height: 46px;
+}
+
+input[type="file"] {
+    display: none;
+}
+.custom-file-upload {
+    position: absolute;
+    border: 1px solid #ccc;
+    padding: 2px 7px;
+    cursor: pointer;
+    font-weight: normal;
+    color: gray;
+    top: 1px;
+    cursor: pointer;
+}
+
+.custom-file-upload:hover {
+    background-color: lightgray;
+}
+
+.emoticon_input{
+    border: 1px solid #ccc;
+    position: absolute;
+    color: gray;
+    background-color: white;
+    padding: 2px 7px;
+    top: 32px;
+    cursor: pointer;
+}
+
+.emoticon_input:hover{
+    background-color: lightgray;
+}
+
+.emoticon_popup{
+    position: absolute;
+    top: -65px;
+    border: 1px solid gray;
+    width: 180px;
+    height: 125px;
+    text-align: center;
+    background: white;
+    padding-top: 13px;
+    overflow: scroll;
+}
+
+.show_popup{
+    display: block;
+}
+
+.hide_popup{
+    display: none;
+}
+
+.muc_btn_show_users{
+    float:left;
+    border: 1px solid lightgray;
+    text-align: center;
+    font-weight: bold;
+    margin-right: 2px;
+    cursor: pointer;
+}
+
+.muc_btn_show_users:hover{
+    background-color: lightgray;
+    border: 1px solid gray;
+}
+.muc_title{
+    float:left;
+}
+
+.jabber-image{
+    text-align: center;
+    margin-top: 8%;
+}
+
+.jabber-container{
+    background-color: white;
+}
+
+body{
+    width: 100%;
+    background-color: white;
+}
+
+.loader {
+    text-align: center;
+    margin-top: 25%;
+    margin-left:35%;
+    margin-bottom:3%;
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 160px;
+    height: 160px;
+    animation: spin 2s linear infinite;
+}
+
+.loader-text{
+    text-align: center;
+    margin-left:43%;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.ui-widget-header {
+    background: #337AB7;
+    color: white;
+}
+
+.ui-widget button {
+    background-color: #337ab7;
+    border-color: #337ab7;
+    color: white;
+    font-family: Verdana,Arial,sans-serif;
+    font-size: 14px;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.ui-dialog {
+    padding: 0px;
+    color: gray;
+}
+
+.ui-corner-all {
+    border-top-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+.ui-widget-content {
+    color: gray;
+}
+
+.ui-dialog-content p{
+    margin: 25px 0 10px;
+}
+
+/* style for search input of contacts */
+#myInput, #myInputChats, #myInputGroups{
+    background-image: url(images/searchicon.png);
+    background-position: 10px 12px;
+    background-repeat: no-repeat;
+    width: 100%;
+    font-size: 16px;
+    padding: 10px 11px 10px 40px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+}
+
+.hidden{
+    display: none;
+}
+
+.autocomplete-active {
+    background-color: #F8DBD4;
+}
+
+.autocomplete-text-concidence {
+    color: #337ab7;
+}
+
+
+/*--------------------------------------------------------------------------------------------------*/
+
+.jabberwerx.auth_form{
+    background: none;
+    border: none;
+}
+
+md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar) {
+    background-color: #333333;
+    color: rgba(255,255,255,0.87);
+}
+
+md-toolbar {
+    box-sizing: border-box;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    position: relative;
+    z-index: 2;
+    font-size: 20px;
+    min-height: 6%;
+    width: 100%;
+}
+
+.md-toolbar-tools {
+    font-size: 20px;
+    letter-spacing: .005em;
+    box-sizing: border-box;
+    font-weight: 400;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    padding: 10px 16px;
+    margin: 0;
+}
+
+.md-button.md-icon-button {
+    margin: 0 6px;
+    height: 100%;
+    min-width: 0;
+    line-height: 24px;
+    padding: 10px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+.md-title{
+    width: 100%;
+    height: 100%;
+}
+
+#loader{
+    display: none;
+}
+
+.buttondemoBasicUsage section {
+    background: #f7f7f7;
+    border-radius: 3px;
+    text-align: center;
+    margin: 1em;
+    position: relative !important;
+    padding-bottom: 10px;
+}
+  
+.buttondemoBasicUsage md-content {
+    margin-right: 7px; }
+  
+.buttondemoBasicUsage section .md-button {
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+  
+.buttondemoBasicUsage .label {
+    position: absolute;
+    bottom: 5px;
+    left: 7px;
+    font-size: 14px;
+    opacity: 0.54;
+}
+
+.authDiv{
+    width: 80%;
+    margin: 0px auto;
+    text-align: center;
+    margin-top: 10%;
+}
+
+.inputContainer{
+    margin-bottom: 3%;
+}
+
+.jabber-select {
+    width: 100%;
+}
+
+#exTab1 .tab-content {
+    color : gray;
+    padding: 5px 20px;
+    border: 1px solid lightgray;
+}
+
+#exTab1 .nav-pills > li > a {
+    border-radius: 0;
+    border: 1px solid lightgray;
+}
+
+.welcome-title{
+    top: 35%;
+    position: absolute;
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.btn{
+    padding: 5px 5px;
+}
+
+.login-btn{
+    padding: 6px 12px;
+    background-color: #333333;
+    border-color: #333333;
+    color:white;
+}
+
+.add_contact_btn{
+    background-color: #333333;
+    border-color: #333333;
+    color:white;
+}
+
+.add_contact_btn:active {
+    color: white;
+}
+
+.add_contact_btn:hover{
+    color:lightgray;
+    cursor: pointer;
+}
+
+.remove_contact_btn{
+    background-color: #333333;
+    border-color: #333333;
+    color:white;
+}
+
+.my_status{
+    width:100%;
+}
+
+.my_presence{
+    margin-bottom: 2%;
+    margin-top: 2%;
+}
+
+.explorator{
+    width:100%;
+}
+
+.my_actions{
+    margin-bottom: 2%;
+}
+
+.my_roster{
+    border: 1px #dfdede solid;
+}
+
+.composition{
+    width:100%;
+}
+
+.my_tabs{
+    width:100%;
+}
+
+.my_muc_tabs{
+    width:100%;
+}
+
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    text-align: center;
+    height: 46px;
+}
+
+input[type="file"] {
+    display: none;
+}
+.custom-file-upload {
+    position: absolute;
+    border: 1px solid #ccc;
+    padding: 2px 7px;
+    cursor: pointer;
+    font-weight: normal;
+    color: gray;
+    top: 1px;
+    cursor: pointer;
+}
+
+.custom-file-upload:hover {
+    background-color: lightgray;
+}
+
+.emoticon_input{
+    border: 1px solid #ccc;
+    position: absolute;
+    color: gray;
+    background-color: white;
+    padding: 2px 7px;
+    top: 32px;
+    cursor: pointer;
+}
+
+.emoticon_input:hover{
+    background-color: lightgray;
+}
+
+.emoticon_popup{
+    position: absolute;
+    top: -65px;
+    border: 1px solid gray;
+    width: 180px;
+    height: 125px;
+    text-align: center;
+    background: white;
+    padding-top: 13px;
+}
+
+.show_popup{
+    display: block;
+}
+
+.hide_popup{
+    display: none;
+}
+
+.muc_btn_show_users{
+    float:left;
+    border: 1px solid lightgray;
+    text-align: center;
+    font-weight: bold;
+    margin-right: 2px;
+    cursor: pointer;
+}
+
+.muc_btn_show_users:hover{
+    background-color: lightgray;
+    border: 1px solid gray;
+}
+.muc_title{
+    float:left;
+}
+
+.jabber-image{
+    text-align: center;
+    margin-top: 8%;
+}
+
+.jabber-container{
+    background-color: white;
+}
+
+body{
+    width: 100%;
+    background-color: white;
+}
+
+.loader {
+    text-align: center;
+    margin-top: 25%;
+    margin-left:35%;
+    margin-bottom:3%;
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #3498db;
+    border-radius: 50%;
+    width: 160px;
+    height: 160px;
+    animation: spin 2s linear infinite;
+}
+
+.loader-text{
+    text-align: center;
+    margin-left:43%;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.ui-widget-header {
+    background: #333333;
+    color: white;
+}
+
+.ui-widget button {
+    background-color: #333333;
+    border-color: #333333;
+    color: white;
+    font-family: Verdana,Arial,sans-serif;
+    font-size: 14px;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.ui-dialog {
+    padding: 0px;
+    color: gray;
+}
+
+.ui-corner-all {
+    border-top-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+.ui-widget-content {
+    color: gray;
+}
+
+.ui-dialog-content p{
+    margin: 25px 0 10px;
+}
+
+#myInput, #myInputChats, #myInputGroups{
+    background-image: url(images/searchicon.png);
+    background-position: 10px 12px;
+    background-repeat: no-repeat;
+    width: 100%;
+    font-size: 16px;
+    padding: 10px 11px 10px 40px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+}
+
+.hidden{
+    display: none;
+}
+
+.autocomplete-active {
+    background-color: #F8DBD4;
+}
+
+.autocomplete-text-concidence {
+    color: #333333;
+}
+
+
+/*--------------------------------------------------------------------------------------------------*/
+
+.jabberwerx.tabpane .tablist .tab a.tab_link {
+    color: #AF161D;
+    text-decoration: none;
+    white-space: nowrap;
+    width: 70%;
+    overflow: hidden;
+    display: block;
+    margin-left: 25px;
+}
+
+div.jabberwerx.roster .group.title {
+    color:              white;
+    background:         #333333;
+    padding:            10px 5px 5px 10px;
+    height:             40px;
+    border-bottom:      1px solid white;
+}
+
+.cd-panel-header {
+    background-color: #333333;
+}
+
+
+
+/*------- Clases nav-pills para Tabs -------*/
+
+.nav-pills > li {
+    float: left;
+}
+.nav-pills > li > a {
+    border-radius: 4px;
+    color: #AF161D;
+}
+.nav-pills > li + li {
+    margin-left: 2px;
+}
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+    color: #fff;
+    /*font-weight: bold;*/
+    background-color: #333333;
+}
+
+.list-group-item.active > .badge,
+.nav-pills > .active > a > .badge {
+    color: #333333;
+    background-color: #fff;
+}
+
+.nav-pills > li > a > .badge {
+    margin-left: 3px;
+}
+
+
+/*------- Clases add_contact_btn para Botón de Agregar y Remover -------*/
+
+.add_contact_btn {
+    background-color: #F4F4F5;
+    border-color: #333333;
+    color: #333333;
+    font-weight: bold;
+}
+
+.add_contact_btn:active, 
+.add_contact_btn:link
+.add_contact_btn:visited
+{
+    color: white;
+}
+
+.add_contact_btn:hover {
+    color: #AF161D;
+    cursor: pointer;
+}
+
+.remove_contact_btn {
+    background-color: #337ab7;
+    border-color: #337ab7;
+    color:white;
+}
+
+
+div.jabberwerx.roster .group.title {
+    color:              white;
+    background:         #F4F4F5;
+    padding:            10px 5px 5px 10px;
+    height:             40px;
+    background-color: #F4F4F5;
+    /*border-color: #333333;*/
+    color: #333333;
+    font-weight: bold;
+    border-bottom:      1px solid lightgray;
+    /*border-bottom:      1px solid white;*/
+}
+
+div.jabberwerx.roster .group.title > a > span {
+    background-color: #F4F4F5;
+    border-color: #333333;
+    color: #333333;
+}
+
+
+.jabberwerx.tabpane .tablist .tab.attn {
+    background: #333333;
+    color: white;
+}
+
+.tab.attn > a {
+    background: #333333;
+    color: white !important;
+}
+
+
+
+.name-session-container {
+    padding-left: 48px;
+    padding-top: 5px;
+    font-size: 18px; 
+    font-family: Arial, Helvetica;
+}
+
+
+.jabberwerx.chatview .chat_badge {
+    position:           absolute;
+    width:              94%;
+    height:             20px;
+    top:                0px;
+    text-align:         center;
+    font-style:         italic;
+    background-color:   #F9FFBC;
+    color:              #6f6f6f;
+}
+
+.spinner-dialog {
+    background-color: transparent;
+    border: none;
+}
+
+.chat_view_loading {
+    color: #AF161D;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: block;
+}
+
+.chatview-spinner-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.chatview-spinner-container {
+    display: block;
+}

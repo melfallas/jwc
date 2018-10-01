@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" style="background-color: white">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+        <title>Jabber</title>
+
+        <link href="assets/css/jquery-ui.css" rel="stylesheet" type="text/css">
+        <link href="assets/css/bootstrap.css" rel="stylesheet">
+        <link href="assets/css/font-awesome.min.css"  rel="stylesheet">
+        <link href="assets/css/jabber-chat.css" rel="stylesheet">
+        <link href="assets/css/big-spinner.css" rel="stylesheet">
+        <link href="assets/css/pnotify.custom.min.css" media="all" rel="stylesheet" type="text/css">
+
+        <!-- Angular -->
+        <script src="assets/js/libs/angular.min.js"></script>
+        <script src="assets/js/libs/angular-animate.min.js"></script>
+        <script src="assets/js/libs/angular-aria.min.js"></script>
+        <script src="assets/js/libs/angular-messages.min.js"></script>
+
+        <!-- Jabberwerx libraries (CAXL) -->
+        <script type="text/javascript" src="caxl/jabberwerx.ui.js"></script>
+        <script type="text/javascript" src="caxl/jabberwerx.cisco.js"></script>
+        <script type="text/javascript" src="assets/notifications/push.min.js"></script>
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="assets/js/libs/html5shiv.min.js"></script>
+        <script src="assets/js/libs/respond.min.js"></script>
+        <![endif]-->
+  </head>
+  <body ng-app="start" ng-controller="first">
+    <!-- Start JabberChat Component -->
+    <div class="jabber-container">
+        <!-- Panel inicial de carga de la aplicación -->
+        <div id="initial_container" style="height: 100vh; padding-top: 20vh;">
+            <div class="jabber-image">
+                <img src="images/xmpp.png" alt="Jabber Chat" height="128" width="128">
+            </div>
+            <div style="text-align: center; padding-top: 2vh;" >
+                Cargando la aplicación ...
+            </div>
+        </div>
+        
+        <!-- Diálogo para espera de preparación y configuraciones del sistema web -->
+        <div id="system_preparing_dialog" class="transparent-dialog" >
+            <div class="spinner-container" style="height: 100%;">
+                &nbsp;<img src="images/simple-loading.gif" alt="Cargando..." class="center-block" 
+                style="vertical-align:middle; margin-top: 30%;" />
+            </div>
+        </div>
+        <!-- Diálogo para espera del servicio de usuarios del AD -->
+        <div id="userinfo_load_dialog" class="transparent-dialog" >
+            <div class="spinner-container" style="height: 100%;">
+                &nbsp;<img src="images/simple-loading.gif" alt="Cargando..." class="center-block" 
+                style="vertical-align:middle; margin-top: 30%;" />
+            </div>
+        </div>
+        <!-- Diálogo para agregar contactos -->
+        <div id="dialog-form" title="Nuevo Contacto">
+          <p class="validateTips">Digite el usuario a agregar</p>
+            <br />
+          <form>
+            <fieldset>
+                <!--
+                <label for="name">Nombre de Usuario:</label>
+                <input type="text" name="name" id="name" value="" class="text ui-widget-content ui-corner-all form-control">
+                -->
+                <!--
+                <label for="name">Nombre de Usuario:</label>
+                <input type="text" name="name" list="datalist" onkeyup="getUsernameFilter()" id="name" value="" class="text ui-widget-content ui-corner-all form-control">
+                <datalist id="datalist" />
+                -->
+                <!--
+                <label for="name">Nombre de Usuario:</label>
+                -->
+                <label id="add-display-name-label" for="name"></label>
+                <input type="text" name="name" id="name" value="" placeholder="Digite el usuario a buscar" class="text ui-widget-content ui-corner-all form-control">
+                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+            </fieldset>
+          </form>
+        </div>
+        
+        <div id="dialog-confirm" title="Eliminar contacto">
+            <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
+            <p>Desea eliminar el contacto?</p>
+        </div>
+
+        <div class="my_loader hidden">
+            <div class="loader"></div>
+            <span class="loader-text">Cargando...</span>
+        </div>
+
+        <div class="my_auth">
+            <div class="jabber-image"><img src="images/xmpp.png" alt="Jabber Chat" height="128" width="128"></div>
+        </div>
+
+        <div class="my_client">
+            <div class="my_status" class="row">
+                <div class="col-md-12 my_presence">
+                    <div class="row">        
+                        <div class="name-session-container" class="col-md-12">{{userNameSession}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="exTab1" style="width:100%">
+
+                <ul  class="nav nav-pills">
+                    <li class="active"><a  href="#1a" data-toggle="tab">Contactos</a></li>
+                    <li><a href="#2a" data-toggle="tab" onclick="hideRoomTapsChat()">Chats</a></li>
+                    <li><a href="#3a" data-toggle="tab" onclick="showRoomTaps()">Chat Rooms</a></li>
+                </ul>
+
+                <div class="tab-content clearfix" style="height: 450px;">
+
+                    <div class="tab-pane active" id="1a">
+                        <div class="explorator">
+                            <div class="my_actions">
+                                <div class="searchInput">
+                                    <input type="text" id="myInput" placeholder="Busqueda de contactos.." title="Digite un usuario">
+                                </div>
+                                <input type="button" id="add-contact-button" class="option_btn add_contact_btn btn" value="Agregar Contacto"/>
+                            </div>
+                            <div class="my_roster"></div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="2a">
+                        <div class="searchInputChats">
+                            <input type="text" id="myInputChats" placeholder="Busqueda de chats.." title="Digite un usuario">
+                        </div>
+                        <div class="composition">
+                            <div class="my_tabs"></div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="3a">
+                        <div class="searchInputGroups">
+                            <input type="text" id="myInputGroups" placeholder="Busqueda de grupos.." title="Digite un usuario">
+                        </div>
+                        <div class="composition">
+                            <div class="my_muc_tabs"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- End JabberChat Component -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="assets/js/libs/jquery-1.12.4.js"></script>
+    <script src="assets/js/libs/jquery-ui.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="assets/js/libs/js.cookie.js"></script>
+    <script src="assets/js/libs/aes.js"></script>
+    <script src="assets/js/libs/pbkdf2.js"></script>
+    <script src="assets/js/libs/AesUtil.js"></script>
+    <script src="assets/js/libs/popper.min.js"></script>
+    <script src="assets/js/libs/bootstrap.min.js"></script>
+    <script src="assets/js/libs/angular-material.min.js"></script>
+    <script src="assets/js/libs/angular-base64-upload.min.js"></script>
+    <script src="assets/js/contentAngular/start.js"></script>
+    <script src="assets/js/contentAngular/start/controllers/initController.js"></script>
+    <script src="assets/js/contentAngular/start/factories/initFactory.js"></script>
+    <script src="assets/js/contentAngular/start/constant/initConstant.js"></script>
+    <script src="assets/js/contentAngular/jabber/initJabberChat.js"></script>
+    <script src="assets/js/libs/ngMask.min.js"></script>
+    <script src="assets/js/libs/angular-busy.min.js"></script>
+    <script src="assets/js/libs/sweetalert.min.js"></script>
+    <script src="assets/js/libs/angular-recaptcha.min.js"></script>
+    <script src="assets/js/libs/angular-cookie.min.js"></script>
+    <script src="assets/js/libs/pnotify.custom.min.js"></script>
+
+    <script>
+      PNotify.prototype.options.styling = "bootstrap3";
+
+    //Envia mensaje al html para cerrar el Iframe.
+    function CloseIframe()
+    {
+    parent.postMessage('Close()', 'http://localhost:9090');  
+    }
+
+    //Recibe el mensaje para restaura la sesion cerrada.
+    function receiver(event) {  
+        if (event.origin == 'http://localhost:9090') {  //Dominio de donde viene el evento.
+            eval(event.data);  
+        }  
+    }  
+    //Se agrega el escuchador de eventos para el llamado del html.
+        window.addEventListener('message', receiver, false);  
+        //Restaura la sesion.          
+        function Recharge() {
+            $(".auth_submit").trigger('click');
+        } 
+</script>
+
+  </body>
+</html>
