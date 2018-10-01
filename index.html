@@ -11,7 +11,8 @@
         <link href="assets/css/jquery-ui.css" rel="stylesheet" type="text/css">
         <link href="assets/css/bootstrap.css" rel="stylesheet">
         <link href="assets/css/font-awesome.min.css"  rel="stylesheet">
-        <link href="assets/css/jabber-chat.css" rel="stylesheet">
+        <!--<link href="assets/css/jabber-chat.css" rel="stylesheet">-->
+        <link rel="stylesheet" type="text/css" href="assets/css/newStyle.css">
         <link href="assets/css/big-spinner.css" rel="stylesheet">
         <link href="assets/css/pnotify.custom.min.css" media="all" rel="stylesheet" type="text/css">
 
@@ -22,6 +23,11 @@
         <script src="assets/js/libs/angular-messages.min.js"></script>
 
         <!-- Jabberwerx libraries (CAXL) -->
+        <script type="text/javascript">
+            jabberwerx_ui_config = {
+                 themeName: "mp_theme"
+            };
+        </script>
         <script type="text/javascript" src="caxl/jabberwerx.ui.js"></script>
         <script type="text/javascript" src="caxl/jabberwerx.cisco.js"></script>
         <script type="text/javascript" src="assets/notifications/push.min.js"></script>
@@ -39,7 +45,7 @@
         <!-- Panel inicial de carga de la aplicación -->
         <div id="initial_container" style="height: 100vh; padding-top: 20vh;">
             <div class="jabber-image">
-                <img src="images/xmpp.png" alt="Jabber Chat" height="128" width="128">
+                <img src="images/logomp.png" alt="Jabber Chat" height="128" width="128">
             </div>
             <div style="text-align: center; padding-top: 2vh;" >
                 Cargando la aplicación ...
@@ -49,14 +55,14 @@
         <!-- Diálogo para espera de preparación y configuraciones del sistema web -->
         <div id="system_preparing_dialog" class="transparent-dialog" >
             <div class="spinner-container" style="height: 100%;">
-                &nbsp;<img src="images/simple-loading.gif" alt="Cargando..." class="center-block" 
+                &nbsp;<img src="images/mploading.gif" alt="Cargando..." class="center-block" 
                 style="vertical-align:middle; margin-top: 30%;" />
             </div>
         </div>
         <!-- Diálogo para espera del servicio de usuarios del AD -->
         <div id="userinfo_load_dialog" class="transparent-dialog" >
             <div class="spinner-container" style="height: 100%;">
-                &nbsp;<img src="images/simple-loading.gif" alt="Cargando..." class="center-block" 
+                &nbsp;<img src="images/mploading.gif" alt="Cargando..." class="center-block" 
                 style="vertical-align:middle; margin-top: 30%;" />
             </div>
         </div>
@@ -96,19 +102,22 @@
         </div>
 
         <div class="my_auth">
-            <div class="jabber-image"><img src="images/xmpp.png" alt="Jabber Chat" height="128" width="128"></div>
+            <div class="jabber-image"><img src="images/logomp.png" alt="Jabber Chat" height="128" width="128"></div>
         </div>
 
         <div class="my_client">
-            <div class="my_status" class="row">
-                <div class="col-md-12 my_presence">
-                    <div class="row">        
-                        <div class="name-session-container" class="col-md-12">{{userNameSession}}</div>
+            
+            <div class="my_status bckgrndStatus" class="row" >
+                <!--
+                    <div class="col-md-12" style="font-family:'GOTHAM-BLACK';">
+                        <div class="row">        
+                            <div class="name-session-container" class="col-md-12">{{userNameSession}}</div>
+                        </div>
                     </div>
-                </div>
-            </div>
-
-            <div id="exTab1" style="width:100%">
+                -->
+                
+            
+            <div id="exTab1" style="width:100%;background-color: #fff;">
 
                 <ul  class="nav nav-pills">
                     <li class="active"><a  href="#1a" data-toggle="tab">Contactos</a></li>
@@ -116,17 +125,19 @@
                     <li><a href="#3a" data-toggle="tab" onclick="showRoomTaps()">Chat Rooms</a></li>
                 </ul>
 
-                <div class="tab-content clearfix" style="height: 450px;">
+                <div class="tab-content clearfix" style="height: auto;">
 
                     <div class="tab-pane active" id="1a">
                         <div class="explorator">
                             <div class="my_actions">
                                 <div class="searchInput">
                                     <input type="text" id="myInput" placeholder="Busqueda de contactos.." title="Digite un usuario">
+                                    <div class="my_presence state_visual"></div>
+                                    <input type="button" id="add-contact-button" class="option_btn add_contact_btn btn btnAddContact" value="+ Contacto"/>
                                 </div>
-                                <input type="button" id="add-contact-button" class="option_btn add_contact_btn btn" value="Agregar Contacto"/>
+                                
                             </div>
-                            <div class="my_roster"></div>
+                            <div class="my_roster scrollList"></div>
                         </div>
                     </div>
 
@@ -134,9 +145,11 @@
                         <div class="searchInputChats">
                             <input type="text" id="myInputChats" placeholder="Busqueda de chats.." title="Digite un usuario">
                         </div>
-                        <div class="composition">
-                            <div class="my_tabs"></div>
+                        <div class="my_tabs"></div>
+                        <!--<div class="composition">
+                            
                         </div>
+                    -->
                     </div>
 
                     <div class="tab-pane" id="3a">
@@ -158,7 +171,7 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="assets/js/libs/jquery-1.12.4.js"></script>
     <script src="assets/js/libs/jquery-ui.js"></script>
-
+    
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="assets/js/libs/js.cookie.js"></script>
     <script src="assets/js/libs/aes.js"></script>
@@ -182,26 +195,8 @@
 
     <script>
       PNotify.prototype.options.styling = "bootstrap3";
-
-    //Envia mensaje al html para cerrar el Iframe.
-    function CloseIframe()
-    {
-    parent.postMessage('Close()', 'http://localhost:9090');  
     }
-
-    //Recibe el mensaje para restaura la sesion cerrada.
-    function receiver(event) {  
-        if (event.origin == 'http://localhost:9090') {  //Dominio de donde viene el evento.
-            eval(event.data);  
-        }  
-    }  
-    //Se agrega el escuchador de eventos para el llamado del html.
-        window.addEventListener('message', receiver, false);  
-        //Restaura la sesion.          
-        function Recharge() {
-            $(".auth_submit").trigger('click');
-        } 
-</script>
+    </script>
 
   </body>
 </html>

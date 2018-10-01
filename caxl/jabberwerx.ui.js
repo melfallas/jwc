@@ -12288,8 +12288,6 @@
             this._authMech = undefined;
             delete this._authMech;
             this._cleanupEntityCache();
-            //Llama la funcion para enviar mensaje de cerrar el Iframe.
-            CloseIframe();
             if (this._autoResourceName && (this._countDownOn == 0)) {
                 this.resourceName = null;
             }
@@ -17906,7 +17904,7 @@ emoticons: {
             var chatFileInputId = jabberwerx.chatFileInputId + 1;
             var fileFormats = ".xls,.xlsx,.pdf,.csv,.doc,.docx,.ppt,.pptx,.ppts,.rtf,.odt,.ott,.odm,.ods,.ots,.odg,.otg,.odp,.odb,.oxt,.mp4,.avi,.wmv,.mov,.divx,.mpeg,.jpeg,.png,.jpg,.tiff,.mp3";
             var builder = jabberwerx.$("<div/>", doc).addClass("chat_input_wrapper");
-            jabberwerx.$("<div/>").appendTo(builder).addClass("send_button").text("Enviar").click(this.invocation("_send"));
+            jabberwerx.$("<div/>").appendTo(builder).addClass("send_button").text("").click(this.invocation("_send"));
             var form = jabberwerx.$("<form/>").appendTo(builder).attr("id", "formChatFile" + chatFileInputId).addClass("file_chat_form");
             jabberwerx.$("<label/>").appendTo(form).attr("for", "chat_file_input" + chatFileInputId).addClass("custom-file-upload").html("<i class='fa fa-lg fa-paperclip'></i>");
             jabberwerx.$("<input/>").appendTo(form).attr('type', 'file').attr("id", "chat_file_input" + chatFileInputId).attr("accept", fileFormats).addClass("chat_file_input").change(this.invocation("_sendFile"));
@@ -18259,6 +18257,7 @@ emoticons: {
                 cssClassName = cssClassName + " error";
             } else {
                 message = msg.getHTML();
+                //console.log(msg)
                 if (!message) {
                     message = msg.getBody();
                 }
@@ -18274,10 +18273,13 @@ emoticons: {
 
             // Find the sender chat display name
             var userRender = msgViewHtml.context.jw_view.displayName;
+            //console.log(userRender)
             //userRender = (userRender.indexOf('@') == -1 ? userRender : userRender.split('@')[0] + '@' );
             //userRender = this._findUserInfoFromList(userRender.split('@')[0]).displayname
             userRender = jabberwerx.getMessageViewDisplayName(userRender.split('@')[0]);
-
+            //console.log(userRender)
+            //console.log(msgViewHtml)
+            //console.log(msgViewHtml.context.innerHTML)
             // Codigo formato style de mensajes de Escritorio a Web.
             var time = msgViewHtml.context.jw_view.timestamp;
             var timeNow = time.split("-").pop();
@@ -18341,6 +18343,7 @@ emoticons: {
             for (var i = 0; i < newChatViewDOM.length; i++) {
                 newChatViewText += '<div class="messageView">' + $(newChatViewDOM[i]).html() + '</div>';
             }
+
             newChatViewText = '<div class="chat_incoming" style="height: 243px; width: 328.011px;">'
                 + newChatViewText + '</div>' + badgeText;
             // Replace the chat innerHTML without JW_ expresion
@@ -19262,7 +19265,7 @@ emoticons: {
             var tabId = "jabberwerx_tabctrl_" + jabberwerx.util.slugify(this.id);
             var builder = jabberwerx.$("<div/>", doc).addClass("tab").bind("click", this.invocation("_handleTabClick")).attr("id", tabId);
             if (!jabberwerx.util.slugify(this.id).includes("room")) {
-                jabberwerx.$("<img/>").appendTo(builder).attr("src", jabberwerx.ui.getThemeImageURL("icon-close2.gif")).attr("alt", "Close").attr("title", "Close").bind("click", this.invocation("_handleClose")).addClass("closer");
+                jabberwerx.$("<img/>").appendTo(builder).attr("src", jabberwerx.ui.getThemeImageURL("close_red.png")).attr("alt", "Close").attr("title", "Close").bind("click", this.invocation("_handleClose")).addClass("closer");
             }
             var link = jabberwerx.$("<a href='#'/>").appendTo(builder).bind("click", this.invocation("_handleTabClick")).text(this.label() || this.id).addClass("tab_link tab_label");
             return builder.get(0);
@@ -19461,7 +19464,8 @@ emoticons: {
                 opts = this._createStatusOption(show, status).prependTo(optgroup);
             }
             selector.val(show + ":" + status);
-            selector.width(this.jq.width() - Math.abs(selector.outerWidth(true) - selector.outerWidth(false)) - 200);
+            //selector.width(this.jq.width() - Math.abs(selector.outerWidth(true) - selector.outerWidth(false)) - 200);
+            selector.width(140);
             if (show == "unavailable" && !this.allowUnavailable) {
                 selector.attr("disabled", true);
             } else {
@@ -19606,7 +19610,7 @@ emoticons: {
             builder.append(" ");
             jabberwerx.$("<span/>").appendTo(builder).addClass("status").text("\u00a0");
             if (this.delegate) {
-                var deleteButton = jabberwerx.$("<button/>").appendTo(builder).addClass("rosterDeleteButton").attr("href", encodeURI("#" + this.entity.jid)).attr("data-toggle", "popover").attr("data-content", "test").html("<i class='fa fa-trash'></i>").bind("click", this.invocation("_onDeleted"));
+                var deleteButton = jabberwerx.$("<button/>").appendTo(builder).addClass("rosterDeleteButton").attr("href", encodeURI("#" + this.entity.jid)).attr("data-toggle", "popover").attr("data-content", "test").html("<i class='fa fa-minus-circle'></i>").bind("click", this.invocation("_onDeleted"));
             }
             return builder.get(0);
         },

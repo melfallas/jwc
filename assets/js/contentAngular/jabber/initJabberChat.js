@@ -305,15 +305,15 @@
                 rosterView = new jabberwerx.ui.RosterView(client.entitySet, jabberwerx.ui.RosterView.groupmode_expanded);
                 rosterView.setDefaultGroupingName("default");
                 rosterView.render().prependTo("div.my_roster");
-                rosterView.height(330);
+                rosterView.height(380);
 
 
                 //create tabbed view
                 tabbedView = new jabberwerx.ui.TabbedView();
                 tabbedView.render().appendTo("div.my_tabs");
                 tabbedView.dimensions({
-                    width: 535,
-                    height: 370
+                    width:  520,
+                    height: 385
                 });
                 tabbedView.addTab("introview", new sample.IntroView());
 
@@ -321,8 +321,8 @@
                 tabbedMUCView = new jabberwerx.ui.TabbedView();
                 tabbedMUCView.render().appendTo("div.my_muc_tabs");
                 tabbedMUCView.dimensions({
-                    width: 535,
-                    height: 370
+                    width: 520,
+                    height: 385
                 });
                 tabbedMUCView.addTab("introview", new sample.IntroView());
                 $('a[href^="#3a"]').on('click',function(){

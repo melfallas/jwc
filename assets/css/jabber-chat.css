@@ -798,6 +798,7 @@ div.jabberwerx.roster .group.title {
 
 .nav-pills > li {
     float: left;
+    border-right: 1px solid #ccc;
 }
 .nav-pills > li > a {
     border-radius: 4px;

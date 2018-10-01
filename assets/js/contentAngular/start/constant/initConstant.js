@@ -36,9 +36,8 @@
             CHATROOMS_DOMAIN : '@conference-2',
 
             //------------------------------- USER SERVICES and HOST Constants ------------------------------//
-            
-            //--------- CONSTANTES DE AMBIENTE DATASYS ---------/
             /*
+            //--------- CONSTANTES DE AMBIENTE DATASYS ---------/
             COMPONENT_SERVER : 'http://172.31.251.15',
             COMPONENT_ROUTE : '/jabber-component',
             //FILE_SERVER_DOMAIN: 'http://localhost',
