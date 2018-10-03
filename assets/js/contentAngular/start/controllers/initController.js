@@ -5,6 +5,7 @@
       .controller('first', ['$http','$scope', '$anchorScroll','ipCookie', 'initFactory', 'initConstant', 'ADUserService', 'initJabberChat', function ($http, $scope, $anchorScroll, ipCookie, initFactory, initConstant, ADUserService, initJabberChat) {
 
         $scope.userNameSession = '';
+       
 
         angular.element(document).ready(function () {
             initJabberChat.initializeJabberChat();
@@ -25,18 +26,10 @@
                     $scope.txtSystem = pArr[1];
                 }
             }
-
-            var iterationCount = 1000;
-            var keySize = 128;
-            var encryptionKey  ="Abcdefghijklmnop";
-            var dataToDecrypt = $scope.txtUsuario;
-            var iv = "dc0da04af8fee58593442bf834b30739";
-            var salt = "dc0da04af8fee58593442bf834b30739";
-            var aesUtil = new AesUtil(keySize, iterationCount);
-            var plaintext =  aesUtil.decrypt(salt, iv, encryptionKey, dataToDecrypt);
-            var encryptPass =  aesUtil.encrypt(salt, iv, encryptionKey, dataToDecrypt);
-            $scope.txtUsuario = plaintext;
-            $scope.txtpassword = encryptPass;
+            var flag = false;
+            $scope.txtUsuario =   $scope.credentials( $scope.txtUsuario, flag=true);
+           // $scope.txtpassword =  $scope.credentials( $scope.txtpassword, flag );
+           // $scope.txtSystem =  $scope.credentials($scope.txtSystem, flag=true);
             initJabberChat.setSystemUsername($scope.txtSystem, $scope.txtUsuario);
             initJabberChat.getLoginCredentials(
                 $scope.txtSystem, $scope.txtUsuario, $scope.launchAuthenticationProcess, $scope.authenticationProcessFail
@@ -54,17 +47,9 @@
                 $(".auth_submit").click();
             } else {
                 $( "#initial_container" ).hide();
-                var iterationCount = 1000;
-                var keySize = 128;
-                var encryptionKey  ="Abcdefghijklmnop";
-                var dataToDecrypt = $scope.txtUsuario;
-                var iv = "dc0da04af8fee58593442bf834b30739";
-                var salt = "dc0da04af8fee58593442bf834b30739";
-                var aesUtil = new AesUtil(keySize, iterationCount);
-                var encryptPass =  aesUtil.encrypt(salt, iv, encryptionKey, dataToDecrypt);
                 $('.auth_submit').click(function() {
                     var jabberUsername = $('#username').val();
-                    var jabberPassword =  encryptPass;
+                    var jabberPassword =  $scope.credentials( $scope.txtpassword, flag );
                     $scope.saveInLocalSession(initConstant.AUTH_JABBER_USERNAME, jabberUsername);
                     $scope.saveInLocalSession(initConstant.AUTH_JABBER_PASS, jabberPassword);
                     $scope.userNameSession = ADUserService.getDisplayNameSession(jabberUsername);
@@ -77,6 +62,22 @@
 
         $scope.authenticationProcessFail = function(data, status, headers, config) {
             console.log('logerr');
+        }
+         //kevin
+         $scope.credentials = function(dataToDecrypt,flag){
+            var iterationCount = 1000;
+            var keySize = 128;
+            var encryptionKey  = "Abcdefghijklmnop";
+            var iv = "dc0da04af8fee58593442bf834b30739";
+            var salt = "dc0da04af8fee58593442bf834b30739";
+            var aesUtil = new AesUtil(keySize, iterationCount);
+             if(flag){
+                var plaintext =  aesUtil.decrypt(salt, iv, encryptionKey, dataToDecrypt);
+                return plaintext;
+             }else{
+                var plaintext =  aesUtil.encrypt(salt, iv, encryptionKey, dataToEncrypt);
+                return plaintext;
+             }
         }
         //Kevin
         $scope.saveInLocalSession = function(clave,data){

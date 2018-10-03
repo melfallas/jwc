@@ -1030,8 +1030,8 @@
                         flagFromAddUser = true;
                         var username = contact.split('@')[0];
                         var isValidUser = isValidADUser(username);
-                        //if(isValidUser) { // WARNING: Esta línea restringe la agregación de usuarios locales
-                        if(true) {
+                        if(isValidUser) { // WARNING: Esta línea restringe la agregación de usuarios locales
+                        //if(true) {
                             var displayName = ADUserService.getDisplayNameByUser(username);
                             roster1.addContact(contact, displayName, 'Contacts');
                             document.getElementById('add-display-name-label').innerHTML = ""; 
@@ -1352,7 +1352,8 @@ function createDefaultUserInfo(p_username) {
 
 
 function isUsersListLoadedInStorage(p_itemName) {
-    return !(localStorage.getItem(p_itemName) === null);
+    //return !(localStorage.getItem(p_itemName) === null);
+    return !(sessionStorage.getItem(p_itemName) === null);
 }
 
 
@@ -1361,7 +1362,8 @@ function saveInLocalStorage(p_itemName, p_object) {
     if (typeof(Storage) !== "undefined") {
         // Guardar sólo si no existe el storage
         if(!isUsersListLoadedInStorage(p_itemName)) {
-            localStorage.setItem(p_itemName, JSON.stringify(p_object));
+            //localStorage.setItem(p_itemName, JSON.stringify(p_object));
+            sessionStorage.setItem(p_itemName, JSON.stringify(p_object));
         }
     } else {
         // Storage not supported
@@ -1373,9 +1375,11 @@ function getFromLocalStorage(p_itemName) {
     var objectResult = {};
     // Verify LocalStorage
     if (typeof(Storage) !== "undefined") {
-        objectResult = JSON.parse(localStorage.getItem(p_itemName));
+        //objectResult = JSON.parse(localStorage.getItem(p_itemName));
+        objectResult = JSON.parse(sessionStorage.getItem(p_itemName));
     } else {
         // LocalStorage not supported
+        console.log('Not supported storage');
     }
     return objectResult;
 }
