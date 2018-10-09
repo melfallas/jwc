@@ -1549,6 +1549,7 @@ function hideRoomTapsChat() {
         $("div[id*='undefined']").hide();
         $("div[id*='mucroom']").hide();
         $("div[id*=" + user + "]").hide();
+        $( "div[id*='introview']" ).hide();
 }
 function showRoomTaps() {
         $("div[id*='undefined']").show();
