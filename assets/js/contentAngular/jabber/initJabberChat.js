@@ -601,7 +601,7 @@
                         restoreSessions();
                         ADUserService.inicializateComponents();
                         //$('#system_preparing_dialog').dialog('close');
-                        setTimeout(function() {$('#system_preparing_dialog').dialog('close')}, 10000);
+                        setTimeout(function() {$('#system_preparing_dialog').dialog('close')}, initConstant.LOADING_TIMEOUT);
                     } else if (evt.data.next == jabberwerx.Client.status_disconnected) {
                         jQuery.each(tabbedView.getAllTabs(), function () {
                             if (this.id != "introview") {
@@ -1549,6 +1549,7 @@ function hideRoomTapsChat() {
         $("div[id*='undefined']").hide();
         $("div[id*='mucroom']").hide();
         $("div[id*=" + user + "]").hide();
+        $( "div[id*='introview']" ).hide();
 }
 function showRoomTaps() {
         $("div[id*='undefined']").show();

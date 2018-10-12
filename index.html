@@ -194,23 +194,31 @@
     <script src="assets/js/libs/pnotify.custom.min.js"></script>
 
     <script>
+        /*
         PNotify.prototype.options.styling = "bootstrap3";
-        // Envia mensaje al html para cerrar el Iframe.
+        // Registrar servidor al que se desea notificar y escuchar notificaciones
+        var PARENT_SERVER = 'http://localhost:9090';
+
+         //Envia mensaje al html para cerrar el Iframe.
         function CloseIframe() {
-            parent.postMessage('Close()', 'http://localhost:9090');  
+            parent.postMessage('Close()', PARENT_SERVER);  
         }
-        // Recibe el mensaje para restaura la sesion cerrada.
-        function receiver(event) {  
-            if (event.origin == 'http://localhost:9090') {  //Dominio de donde viene el evento.
+
+        // Recibe el mensaje para restaura la sesion cerrada
+        function receiver(event) {
+            // Registrar dominio de donde proviene el evento
+            if (event.origin == PARENT_SERVER) {
                 eval(event.data);  
             }  
         }  
-        // Se agrega el escuchador de eventos para el llamado del html.
+
+        //Se agrega el escuchador de eventos para el llamado del html
         window.addEventListener('message', receiver, false);  
-        // Restaura la sesion
+        // Restaura la sesion haciendo click en el login         
         function Recharge() {
             $(".auth_submit").trigger('click');
-        } 
+        }
+        */
     </script>
 
   </body>

@@ -32,8 +32,9 @@
             AUTH_JABBER_PASS : 'autjwcps',
 
             // Others
+            LOADING_TIMEOUT : 5000,
             APP_IMAGES_ROUTE : '/images/xmpp.png',
-            CHATROOMS_DOMAIN : '@conference-2',
+            CHATROOMS_DOMAIN : '@conference-',
 
             //------------------------------- USER SERVICES and HOST Constants ------------------------------//
             /*
