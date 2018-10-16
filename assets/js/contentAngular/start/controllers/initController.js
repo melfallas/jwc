@@ -22,10 +22,16 @@
                 var pArr = qArray[i].split('='); //split key and value
                 if (pArr[0] == "uid") {
                     $scope.txtUsuario = pArr[1];
-                }else{
-                    $scope.txtSystem = pArr[1];
+                } else {
+                    if (pArr[0] == "prt") {
+                        $scope.parent = pArr[1];
+                    } else {
+                        $scope.txtSystem = pArr[1];
+                    }
                 }
             }
+            // Modificaciones para multisesión
+            PARENT_SERVER = $scope.parent;
             var flag = false;
             $scope.txtUsuario =   $scope.credentials( $scope.txtUsuario, flag=true);
            // $scope.txtpassword =  $scope.credentials( $scope.txtpassword, flag );
@@ -96,8 +102,34 @@
             }
             return objectResult;
         }
-	}]);
 
+    }]);
+    
 })()
 
+
+function registerMultisessionEvents(pFunctionName) {
+    var functionObject = {};
+    // Envia mensaje al html para cerrar el Iframe
+    function CloseIframe() {
+        parent.postMessage('Close()', PARENT_SERVER);
+    }
+    // Recibe el mensaje para restaura la sesion cerrada
+    function receiver(event) {
+        // Registrar dominio de donde proviene el evento
+        if (event.origin == PARENT_SERVER) {
+            eval(event.data);
+        }
+    }
+    // Se agrega el escuchador de eventos para el llamado del html
+    window.addEventListener('message', receiver, false);
+    // Restaura la sesion haciendo click en el login
+    function Recharge() {
+        $(".auth_submit").trigger('click');
+    }
+    // Retornar funciones para cierre y recarga del iframe
+    functionObject.CloseIframe = CloseIframe;
+    functionObject.Recharge = Recharge;
+    return functionObject[pFunctionName]();
+}
 

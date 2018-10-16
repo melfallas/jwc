@@ -12289,7 +12289,7 @@
             delete this._authMech;
             this._cleanupEntityCache();
             //Llama la funcion para enviar mensaje de cerrar el Iframe.
-            CloseIframe();
+            registerMultisessionEvents('CloseIframe');
             if (this._autoResourceName && (this._countDownOn == 0)) {
                 this.resourceName = null;
             }
