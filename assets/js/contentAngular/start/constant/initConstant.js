@@ -32,7 +32,7 @@
             AUTH_JABBER_PASS : 'autjwcps',
 
             // Others
-            LOADING_TIMEOUT : 5000,
+            LOADING_TIMEOUT : 3000,
             APP_IMAGES_ROUTE : '/images/xmpp.png',
             CHATROOMS_DOMAIN : '@conference-',
 

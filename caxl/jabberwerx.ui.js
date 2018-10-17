@@ -12288,8 +12288,8 @@
             this._authMech = undefined;
             delete this._authMech;
             this._cleanupEntityCache();
-            // Llamada a funcion para enviar mensaje de cerrar el Iframe
-            CloseIframe();
+            //Llama la funcion para enviar mensaje de cerrar el Iframe.
+            registerMultisessionEvents('CloseIframe');
             if (this._autoResourceName && (this._countDownOn == 0)) {
                 this.resourceName = null;
             }
