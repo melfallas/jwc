@@ -853,7 +853,7 @@
             $(".searchInputGroups").keyup(function(){
                 filterGroups();
             });
-            
+            //kevsan
             function filterGroups(){
                 var input, filter, divContainer, groups, a, i;
                 input = document.getElementById("myInputGroups");
@@ -873,19 +873,25 @@
             
             function filterChats(){
                 var input, filter, divContainer, chats, a, i;
+                
                 input = document.getElementById("myInputChats");
                 filter = input.value.toUpperCase();
-                divContainer = document.getElementsByClassName("jabberwerx tabpane");
+              
+                    divContainer = document.getElementsByClassName("jabberwerx tabpane");
                 chats = divContainer["0"].childNodes["0"].childNodes;
                 for (i = 0; i < chats.length; i++) {
                     a = chats[i].getElementsByTagName("a")[0];
-                    if (a.textContent.toUpperCase().indexOf(filter) != -1) {
-                        $(chats[i]).attr("style", "display: ");
-                    } else {
-                        $(chats[i]).attr("style", "display: none !important");
-
+                    if(filter != "" || filter != " "){
+                        if (a.textContent.toUpperCase().indexOf(filter) != -1) {
+                            $(chats[i]).attr("style", "display: ");
+                        } else {
+                            $(chats[i]).attr("style", "display: none !important");
+    
+                        }
                     }
+                  
                 }
+                
             }
             
             function filterContact(){
@@ -1550,6 +1556,10 @@ function hideRoomTapsChat() {
         $("div[id*='mucroom']").hide();
         $("div[id*=" + user + "]").hide();
         $( "div[id*='introview']" ).hide();
+
+        //init
+        $( "div[id*='jabberwerx_tabctrl_introview']" ).show();
+        $( "div[id*='chatdifusionundefinedmpmpcentralgob']" ).show();
 }
 function showRoomTaps() {
         $("div[id*='undefined']").show();
