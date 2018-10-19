@@ -13,8 +13,13 @@
                     method: "GET",
                     url: adGetAllUserServiceUrl
                 }).then(function correcto(response)
-                { 
+                {
+                    // Cerrar dialog del servicio
+                    $('#userinfo_load_dialog').dialog('close');
+                    // Procesar el userList de respuesta
                     var adUserArray = response.data;
+                    var count = isNotEmptyArray(adUserArray) ? adUserArray.length : 0;
+                    console.log('c ' + count);
                     // Filtrar usuarios duplicados en la respuesta
                     var hash = {};
                     var uniqueUserList = adUserArray.filter(function(current) {
@@ -22,10 +27,11 @@
                         hash[current.username] = true;
                         return exists;
                     });
+                    count = isNotEmptyArray(uniqueUserList) ? uniqueUserList.length : 0;
+                    console.log('uc ' + count);
                     // Guardar el resultado en el local storage
                     saveInLocalStorage(initConstant.AD_USER_LIST, uniqueUserList);
-                    var count = isNotEmptyArray(uniqueUserList) ? uniqueUserList.length : 0;
-                    console.log('c ' + count);
+                    console.log('svs ' + count);
                     // Actualizar nombres de los contactos al terminar de cargar usuarios del AD
                     $('.name-session-container').text(getDisplayNameByUserName($('#username').val()));
                     // Actualizar nombres de los contactos al terminar de cargar usuarios del AD
@@ -41,8 +47,6 @@
                     }
                     getChatRoomsCached(true);
                     getAdminChatRooms(true);
-                    // Cerrar dialog del servicio
-                    $('#userinfo_load_dialog').dialog('close');
                     // Recargar conversaciones del MessageHistory con el displayName del AD
                     var tabList = tabbedView.getAllTabs();
                     for(var i = 0; i < tabList.length; i++) {
