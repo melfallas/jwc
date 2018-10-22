@@ -1312,7 +1312,7 @@
 function isValidADUser(p_username) {
     var isValid = false;
     var userList = getFromLocalStorage("adusrlst")
-        .filter(userObjet => userObjet.username == p_username);
+        .filter(userObjet => userObjet.username.toLowerCase() == p_username.toLowerCase());
     isValid = isNotEmptyArray(userList);
     return isValid;
 }
