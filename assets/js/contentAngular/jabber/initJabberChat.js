@@ -187,7 +187,6 @@
             varFactory.setSystemUsername = function(system, username) {
                 systemName = system;
                 systemUsername = username;
-                //jabberwerx.systemUsername = systemUsername;
             };
 
             varFactory.getLoginCredentials = function(system, sysUsername, success, error) {
@@ -288,8 +287,6 @@
                 var auth = new jabberwerx.ui.AuthenticationView(client, jabber_config.domain);
                 auth.allowAtSymbol = jabber_config.atSymbolAllowed;
                 auth.render().appendTo("div.my_auth");
-                //system_preparing_dialog.dialog('open');
-                //$('#system_preparing_dialog').dialog('open');
 
                 //create view of your own presence
                 var prsView = new jabberwerx.ui.SelfPresenceView(client);
@@ -332,35 +329,14 @@
                 $('a[href^="#3a"]').on('click',function(){
                     cancelAlerts(tabbedMUCView);
                    });
-                //console.log('----- Sel -----');
-                //console.log($('div.my_tabs:not(div.emoticon_input)'));
-
-                // Evento para cancelación de emoticones
-                /*
-                $('div:not(div.emoticon_input)').on('click', function(evt) {
-                    console.log('my_tabs - clicked');
-                    $(".emoticon_popup").removeClass("show_popup");
-                    $(".emoticon_popup").addClass("hide_popup");
-                });
-                $('div:not(div.emoticon_input)').on('click', function(evt) {
-                    console.log('my_tabs - clicked');
-                    $(".emoticon_popup").removeClass("show_popup");
-                    $(".emoticon_popup").addClass("hide_popup");
-                });
-                */
-                
-
-                //**** Events Biding ******//
 
                 client.event("messageReceived").bind(function(evt) {
                     try {
-                    //console.log("Event messageReceived triggered");
                         var type = $(evt.data._DOM).attr("type");
                         var id = $(evt.data._DOM).attr("id");
                         var children = $(evt.data._DOM).children();
                         var protocol = children[0].namespaceURI;
                         var attrFrom = $(evt.data._DOM).attr("from");
-                        //console.log(attrFrom);
                         var from = $(evt.data._DOM).attr("from").split("/")[0];
                         var from2 = from.split("@");
                         var from3 = $(evt.data._DOM).attr("from").split("/")[1];
@@ -376,9 +352,6 @@
                         if(message.indexOf('You have been granted membership to this room') != -1) {
                             message = 'Has sido agregado a una nueva sala';
                         }
-
-                        //console.log('PRT: ' + protocol);
-                        //if(protocol == "jabber:client" || protocol == "http://jabber.org/protocol/httpbind") {
                         if(protocol == initConstant.NATIVE_APPLICATION_PROTOCOL){
                             var text = children[0].textContent;
                             if(text != "Your chat application does not support downloading this file") {
@@ -418,47 +391,18 @@
                                      this.requestAttention();
                                  }
                                      });
-                                //console.log('TDCId:' + receiberTabDataChatId);
                                 startIdSelector = "[id^='jabberwerx_tabdata_chat']";
-                                //console.log('select:' + startIdSelector);
                                 var receiberTabDataChatElementList = $(startIdSelector);
-                                //console.log(receiberTabDataChatElementList);
                                 $.each(receiberTabDataChatElementList, function() {
                                     var userChatId = $(this).attr('id').split(":")[1];
                                     var userReceiverId = from2[0] + initConstant.MESSAGE_RECEIVED_SELECTOR_DOMAIN;
                                     if($(this).attr('id').indexOf(userReceiverId) != -1) {
-                                        //console.log("rec: " + userReceiverId + " - usu: " + userChatId);
-                                        //console.log($(this));
                                         if ($(this).length != 0) {
                                             $(this).find("div.chat_incoming").append(msgHtml);
                                         }
                                     }
                                 });
-                                
-                                /*
-                                if (receiberTabDataChatElement.length != 0) {
-                                    receiberTabDataChatElement.find("div.chat_incoming").append(msgHtml);
-                                }
-                                */
-                                /*
-                                bigName = initConstant.MESSAGE_RECEIVED_SELECTOR_PREFIX + from2[0] + initConstant.MESSAGE_RECEIVED_SELECTOR_DOMAIN + from3;
-                                shortName = initConstant.MESSAGE_RECEIVED_SELECTOR_PREFIX + from2[0] + initConstant.MESSAGE_RECEIVED_SELECTOR_DOMAIN;
-                                
-                                //console.log('BigName:' + bigName);
-                                if ($(bigName).length != 0) {
-                                    appendMsg = false;
-                                    $(bigName).find("div.chat_incoming").append(msgHtml);
-                                }
-
-                                //console.log('shortName:' + shortName);
-                                if ($(shortName).length != 0) {
-                                    $(shortName).find("div.chat_incoming").append(msgHtml);
-                                }
-                                */
-
                                 setScrollDown();
-                                //console.log('pasa');
-                                //$("div.chat_incoming").scrollTop($("div.chat_incoming")[0].scrollHeight);
                             }else{
                                 SyncFileMessage(from, $.parseHTML(innerHTML)[1].innerHTML,$.parseHTML(innerHTML)[2].innerHTML);
                             }
@@ -488,22 +432,18 @@
                         // Obtener el sender y aplicar filtros para identificadores numéricos de salas de chat
                         var sender = $(evt.data._DOM).attr("from").split("@")[0];
                         sender = cleanNameRoom(sender);
-                        //sender = getDisplayNameByUserName(cleanNameRoom(sender));
 
                         //Avoid message from file transfer action
                         if(message == "Your chat application does not support downloading this file"){
                             message = sender + " te ha enviado un archivo: " + jabberwerx.tempTransferedFilename;
                         }
-
                         if(message && message.includes("JabberFileManager")){
                             var fileName = message.split("/")[7];
                             message = sender + " te ha enviado un archivo: " + fileName;
                         }
-
                         if(type == "groupchat"){
                             showNotification = false;
                         }
-
                         // Validar si se debe enviar la notificación
                         if(showNotification) {
                             if(message != undefined && sender != undefined) {
@@ -515,34 +455,12 @@
                                         body: message,          // Texto del cuerpo del mensaje
                                         icon: logoURL,          // Ruta de la imagen para el logo
                                         timeout: 5000,          // Tiempo de duración de la notificación
-                                        /*
-                                        onClick: function () {
-                                            //this.close();
-                                        }
-                                        */
                                     }
                                 );
                             }
-
-                            /*
-                            // Old Notification Code to delete
-                            console.log("Sending notification");
-                            var urlService = initConstant.QUEUE_HOST + initConstant.SERVER_PORT + "/messageservice" +
-                                initConstant.SERVER_URL_NOTIFICATION + "?receiver=" + systemUsername.toLowerCase() + "&sender=" + sender + "&message=" + message;
-                            $http.post(urlService, {
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                }
-                            }).then(function (data, status, headers, config) {
-                                if(!$.isEmptyObject(data.data)){
-                                    console.log("Notification Sent");
-                                }
-                            });
-                            */
                         }
                     } catch (error) {
                         console.log('MessageReceived Exception:');
-                        //console.log(error);
                     }
                 });
 
@@ -560,7 +478,6 @@
                     var chatroom = evt.data.getRoom();
                     //Saving opened chat
                     var urlService = initConstant.SERVER_HOST + initConstant.SERVER_PORT + "/JabberFileManager" +
-                    //initConstant.SERVER_URL_SESSIONCHATROOMS + "?username=" + systemUsername + "&chatroomid=" + chatroom._node + "&chatroom=" + escape(JSON.stringify(chatroom)) + "&action=save"; 
                     initConstant.SERVER_URL_SESSIONCHATROOMS + "?username=" + $("#username").val() + "&chatroomid=" + chatroom._node + "&chatroom=" + escape(JSON.stringify(chatroom)) + "&action=save";
                     $http.post(urlService, {
                         headers: {
@@ -571,8 +488,6 @@
                             console.log("Save chatroom completed");
                         }
                     });
-
-                    // alert(evt.data.getInvitor() + " invited you to chat in room: " + evt.data.getRoom());
                 });
 
                 /*Triggered when a client's status changes. The status codes are one of:
@@ -592,7 +507,6 @@
                         prsView.update();
                         rosterView.update();
                         tabbedView.update();
-                        //console.log('-ObtUsr-');
                         $('#system_preparing_dialog').dialog('close');
                         // Llamar servicio de lista de usuarios y cargar solamente si no están en storage
                         if(isUsersListLoadedInStorage(initConstant.AD_USER_LIST)){
@@ -600,11 +514,9 @@
                         } else {
                             ADUserService.saveUserData(rosterView, tabbedView, loadSessionMessages, getChatRoomsCached, getAdminChatRooms);
                         }
-                        //console.log('-FObtUsr-');
                         $('#system_preparing_dialog').dialog('open');
                         restoreSessions();
                         ADUserService.inicializateComponents();
-                        //$('#system_preparing_dialog').dialog('close');
                         setTimeout(function() {$('#system_preparing_dialog').dialog('close')}, initConstant.LOADING_TIMEOUT);
                     } else if (evt.data.next == jabberwerx.Client.status_disconnected) {
                         jQuery.each(tabbedView.getAllTabs(), function () {
@@ -616,11 +528,8 @@
                         });
                         tabbedView.hide();
                         auth.show();
-                        //$(".my_client").hide();
                     }
                 });
-
-                //TODO: Kevin, Alerta usuario existente
                 var count = 3;
                 client.entitySet.event("entityUpdated").bind(function (evt) {
                     var entityAdded = evt.data.getPrimaryPresence();
@@ -661,18 +570,6 @@
 
                                         count = 3;
                                         $('#dialog-form').dialog('close');
-                                       // updateTips( "El usuario " + novo2 + " ha sido agregado con exito.");
-                                        // TODO: Verify Adding one user several times
-                                        /*
-                                        var contact = evt.data.jid._full;
-                                        $( "#name" ).addClass( "ui-state-error" );
-                                        updateTips( "El usuario " + evt.data.jid._node + " no es valido.");
-                                        count = 0;
-                                        flagFromAddUser = false;
-                                        var entity = client.entitySet.entity(contact);
-                                        entity.remove();
-                                        console.log("delete");
-                                        */
                                     }
                             }
                     });
@@ -686,19 +583,14 @@
                 //Triggered when an item  in the roster is selected.
                 //opens session with selected contact, the chatSessionOpened handler creates a new tab if no tab is open for the contact
                 rosterView.event("rosterItemSelected").bind(function (evt) {
-                    // :KEVIN
                     hideRoomTapsChat();
-                    //console.log("rosterItemSelected");
                     var item = evt.data.item;
                     var entity = item.entity;
                     if (entity instanceof jabberwerx.Contact) {
                         var id = "chat:" + entity.jid.getBareJIDString();
-                        //jabberwerx.ChatController.openSession opens a new session or returns existing session for the passed contact
-                        //console.log("id: " + id);
                         $(tabbedView.getAllTabs()).each(function( index ) {
                             $(this).hide();
                         });
-//                        $(".tabdata").hide();
                         $("#1a").removeClass("active");
                         $("#2a").addClass("active");
                         var children = $(".nav-pills").children();
@@ -706,9 +598,8 @@
                         $(children[0]).removeClass("active");
                         $(children[1]).addClass("active");
 
-                        var session = chat.openSession(entity.jid);//****************** */
+                        var session = chat.openSession(entity.jid);
                         var tab = tabbedView.getTab(id);
-                      // KEVIN
                       var tabs = $(".tab");
                         if (tab) {
                         tab.activate();
@@ -721,7 +612,6 @@
                                 }
                                     });
                           }  
-                        //jQuery('.nav-pills a[href="#2a"]').tab('show');
                     } else if(entity instanceof jabberwerx.MUCRoom){
                         var id = "room" + entity._guid;
 
@@ -757,10 +647,8 @@
                     var labelUserName = session.jid._full.split('@')[0];
                     var displayChatName = session.jid._full;
                    if(displayChatName.indexOf(initConstant.CHATROOMS_DOMAIN) == -1){
-                    //$('#system_preparing_dialog').dialog('open');
                     //Saving opened chat
                     var urlService = initConstant.SERVER_HOST + initConstant.SERVER_PORT + "/JabberFileManager" +
-                    //initConstant.SERVER_URL_SESSIONCHATS + "?username=" + systemUsername + "&chat=" + chat + "&action=save"; 
                     initConstant.SERVER_URL_SESSIONCHATS + "?username=" + $("#username").val() + "&chat=" + chat + "&action=save";
                     $http.post(urlService, {
                         headers: {
@@ -770,7 +658,6 @@
                         if(!$.isEmptyObject(data.data)){
                             console.log("Save completed");
                         }
-                        //$('#system_preparing_dialog').dialog('close');
                     });
                     var tab = tabbedView.getTab(id);
                     if (!tab) {
@@ -781,7 +668,6 @@
                         var loggedUser = $("#username").val();
                         var sessionUser = (session.jid._full.split('/')[0]).split('@')[0];
                         loadSessionMessages(chatView, messageHistory, loggedUser, sessionUser);
-                        //loadSessionMessages(chatView, messageHistory, $("#username").val() + "@" + jabber_config.domain,session.jid._full.split('/')[0]);
                         // Get the Tab Label Display Name and Create Tab
                         tab = tabbedView.addTab(id, chatView);
                         var displayName = ADUserService.getDisplayNameByUser(labelUserName);
@@ -857,7 +743,6 @@
             $(".searchInputGroups").keyup(function(){
                 filterGroups();
             });
-            //kevsan
             function filterGroups(){
                 var input, filter, divContainer, groups, a, i;
                 input = document.getElementById("myInputGroups");
@@ -918,7 +803,6 @@
 
             function getChatRoomsCached(loadRoomsActive) {
                 if(loadRoomsActive) {
-                    //var urlService = initConstant.SERVER_HOST + initConstant.SERVER_PORT + "/JabberFileManager" + initConstant.SERVER_URL_SESSIONCHATROOMS + "?username=" + systemUsername; 
                     var urlService = initConstant.SERVER_HOST + initConstant.SERVER_PORT + "/JabberFileManager" + initConstant.SERVER_URL_SESSIONCHATROOMS + "?username=" + $("#username").val();
                     $http.get(urlService, {
                         headers: {
@@ -935,7 +819,6 @@
 
             function getAdminChatRooms(loadRoomsActive){
                 if(loadRoomsActive) {
-                    //var urlService = initConstant.SERVER_HOST + initConstant.SERVER_PORT + "/JabberFileManager" + initConstant.SERVER_URL_ADMINCHATROOMS + "?username=" + systemUsername +"@"+ initConstant.JABBER_CLIENT_DOMAIN; 
                     var urlService = initConstant.SERVER_HOST + initConstant.SERVER_PORT + "/JabberFileManager" + initConstant.SERVER_URL_ADMINCHATROOMS + "?username=" + $("#username").val() +"@"+ initConstant.JABBER_CLIENT_DOMAIN;
                     $http.get(urlService, {
                         headers: {
@@ -952,7 +835,6 @@
             }
 
             function getSessionChats(){
-                //var urlService = initConstant.SERVER_HOST + initConstant.SERVER_PORT + "/JabberFileManager" + initConstant.SERVER_URL_SESSIONCHATS + "?username=" + systemUsername; 
                 var urlService = initConstant.SERVER_HOST + initConstant.SERVER_PORT + "/JabberFileManager" + initConstant.SERVER_URL_SESSIONCHATS + "?username=" + $("#username").val();
                 $http.get(urlService, {
                     headers: {
@@ -976,8 +858,6 @@
                 getAdminChatRooms(loadChatRoomsActivated);
                 getSessionChats();
             }
-
-
             
              function updateTips( t ) {
                tips
@@ -1013,7 +893,6 @@
                            chatController.closeSession(chatController._chatSessions[i]);
                        }
                    }
-                   //entity.remove();
                    roster1.deleteContact(entity.jid);
                } catch (e) {
                    console.log(e);
@@ -1041,11 +920,9 @@
                         var username = contact.split('@')[0];
                         var isValidUser = isValidADUser(username);
                         if(isValidUser) { // WARNING: Esta línea restringe la agregación de usuarios locales
-                        //if(true) {
                             var displayName = ADUserService.getDisplayNameByUser(username);
                             roster1.addContact(contact, displayName, 'Contacts');
                             document.getElementById('add-display-name-label').innerHTML = ""; 
-                           // $('#dialog-form').dialog('close');
                         } else {
                             name.addClass( "ui-state-error" );
                             updateTips( "El usuario " + user + " no es valido.");
@@ -1154,7 +1031,6 @@
              * Cleanup the room object and clear our local reference.
              */
             function onRoomEnterError(err, aborted) {
-                //alert('Error entering room: ' + err.message);
                 room.destroy();
             }
 
@@ -1182,22 +1058,18 @@
 
                 // Respond to an event that is triggered when an occupant is added to the room
                 newroom.occupants.event("entityCreated").bind(function(evt) {
-                    //console.log("To be implemented");
                 });
 
                 // Respond to an event that is triggered when an occupant is updated in the room
                 newroom.occupants.event("entityUpdated").bind(function(evt) {
-                    //console.log("To be implemented");
                 });
 
                 // Respond to an event that is triggered when an occupant is removed from the room
                 newroom.occupants.event("entityDestroyed").bind(function(evt) {
-                    //console.log("To be implemented");
                 });
 
                 // Respond to an event that is triggered when an occupant in the room is renamed
                 newroom.occupants.event("entityRenamed").bind(function(evt) {
-                    //console.log("To be implemented");
                 });
 
                 /**
@@ -1215,22 +1087,6 @@
                     newroom.event("roomExited").bind(function(evt) {
                         console.log("roomExited");
                         newroom.destroy();
-                        newroom = null;
-                        /*
-                        // Deleting opened chat
-                        var urlService = initConstant.SERVER_HOST + initConstant.SERVER_PORT + "/JabberFileManager" +
-                        initConstant.SERVER_URL_SESSIONCHATROOMS + "?username=" + nickname  + "&chatroomid=" + chatRoomName._node + "&chatroom=" + escape(JSON.stringify(chatRoomName)) + "&action=delete"; 
-                        //initConstant.SERVER_URL_SESSIONCHATROOMS + "?username=" + nickname + "&chatroomid=" + chatRoomName._node + "&chatroom=" + escape(JSON.stringify(chatRoomName)) + "&action=delete";
-                        $http.post(urlService, {
-                            headers: {
-                                'Content-Type': 'application/json'
-                            }
-                        }).then(function (data, status, headers, config) {
-                            if(!$.isEmptyObject(data.data)) {
-                                console.log("Deleted chatroom completed");
-                            }
-                        });
-                        */
                     });
                     
                     /**
@@ -1243,8 +1099,6 @@
                     newroom.event("beforeRoomBroadcastSent").bind(function(evt) {
                         console.log("beforeRoomBroadcastSent");
                     });
-                
-                    //
                     newroom.event("roomBroadcastReceived").bind(function(evt) {
                         if(mucview == undefined ){
                             mucview = new jabberwerx.ui.MucView(newroom);
@@ -1299,7 +1153,6 @@
                     newroom.enter(nickname, enterRoomArgs);
                 } catch(ex) {
                     console.log('EnterRoomError: ' + ex.message);
-                    //alert("The following error occurred while attempting to enter the room: " + ex.message);
                 }
             }
 
@@ -1307,8 +1160,6 @@
         }]);
 
 })()
-
-
 function isValidADUser(p_username) {
     var isValid = false;
     var userList = getFromLocalStorage("adusrlst")
@@ -1351,7 +1202,6 @@ function findUserInfoFromList(p_username, p_userArray) {
 
 function createDefaultUserInfo(p_username) {
     return {
-        //displayname : p_username + '@',
         displayname : p_username,
         username : p_username,
         firstname  : p_username,
@@ -1360,19 +1210,15 @@ function createDefaultUserInfo(p_username) {
     };
 }
 
-
 function isUsersListLoadedInStorage(p_itemName) {
-    //return !(localStorage.getItem(p_itemName) === null);
     return !(sessionStorage.getItem(p_itemName) === null);
 }
-
 
 function saveInLocalStorage(p_itemName, p_object) {
     // Verificar storage
     if (typeof(Storage) !== "undefined") {
         // Guardar sólo si no existe el storage
         if(!isUsersListLoadedInStorage(p_itemName)) {
-            //localStorage.setItem(p_itemName, JSON.stringify(p_object));
             sessionStorage.setItem(p_itemName, JSON.stringify(p_object));
         }
     } else {
@@ -1394,7 +1240,6 @@ function getFromLocalStorage(p_itemName) {
     return objectResult;
 }
 
-
 function getJabberUserInfo($http, p_username) {
       $http({
         method: "GET",
@@ -1404,7 +1249,6 @@ function getJabberUserInfo($http, p_username) {
         console.log(response.data);
         var found = response.data.userList.find(x => x.username === p_username);
         console.log(found.displayName);
-         //$scope.gatos=respuesta.data;
      },
      function error(response)
      {
@@ -1478,14 +1322,6 @@ function getADUserInfoListByDisplayName(p_displayNameSearch) {
             .indexOf(p_displayNameSearch.toLowerCase()) != -1
         );
     var count = isNotEmptyArray(userList) ? userList.length : 0;
-    // Condición para búsqueda cuando se digita el primer caracter
-    /*
-    if(count == 0) {
-        var matchPatterm = new RegExp('^' + p_displayNameSearch);
-        var userList = getFromLocalStorage("adusrlst")
-            .filter(userObjet => !matchPatterm.test(userObjet.displayname));
-    }
-    */
     // Validate null or undefinet list
     if(userList == null || userList == undefined) {
         userList = new Array();
@@ -1495,7 +1331,6 @@ function getADUserInfoListByDisplayName(p_displayNameSearch) {
             userList = [userList];
         }
     }
-    // Debug
     if(0 != 0) {
         count = isNotEmptyArray(userList) ? userList.length : 0;
         console.log('f ' + count);
@@ -1528,8 +1363,6 @@ function setScrollDown(){
     var chatBox = $("div.chat_incoming");
     $.each(chatBox, function( index, chatItem ) {
         if(chatItem.scrollHeight != 0) {
-            //console.log( index + " ::: " + chatItem.scrollHeight );
-            //this.scrollTop(chatItem.scrollHeight);
            return $("div.chat_incoming").scrollTop(chatItem.scrollHeight);
         }
     });
@@ -1546,8 +1379,6 @@ function getChatMessageDisplayName(username) {
     }
     return chatMessageDisplayName;
 }
-
-// KEVIN
 function cancelAlerts(tabView){
     $.each(tabView.getAllTabs(), function () {
      this.cancelAttention();
@@ -1561,7 +1392,6 @@ function hideRoomTapsChat() {
         $("div[id*=" + user + "]").hide();
         $( "div[id*='introview']" ).hide();
 
-        //init
         $( "div[id*='jabberwerx_tabctrl_introview']" ).show();
         $( "div[id*='chatdifusionundefinedmpmpcentralgob']" ).show();
 }
@@ -1571,7 +1401,6 @@ function showRoomTaps() {
 }
 
 function closeEmoticonPopup() {
-    //console.log('chat_input - clicked');
     $(".emoticon_popup").removeClass("show_popup");
     $(".emoticon_popup").addClass("hide_popup");
 }
@@ -1616,7 +1445,6 @@ function autocomplete(inp) {
                 + coincidenceWord + '</strong>' + coincidenceSufix;
             b.innerHTML += "<input type='hidden' value='" + username + "'>";
             b.addEventListener("click", function(e) {
-                //$('#add-display-name-label').text('valor');
                 var userSelected = this.getElementsByTagName('input')[0].value;
                 document.getElementById('add-display-name-label').innerHTML = getDisplayNameByUserName(userSelected);
                 inp.value = userSelected;
@@ -1680,6 +1508,3 @@ function autocomplete(inp) {
         closeAllLists(e.target);
     });
 }
-
-
-
