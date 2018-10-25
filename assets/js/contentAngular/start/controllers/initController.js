@@ -1,22 +1,17 @@
 (function () {
     angular.module('start', ['ngMaterial','ipCookie'])
     
-      //.controller('first', ['$scope', '$anchorScroll', function ($scope, $anchorScroll) {
       .controller('first', ['$http','$scope', '$anchorScroll','ipCookie', 'initFactory', 'initConstant', 'ADUserService', 'initJabberChat', function ($http, $scope, $anchorScroll, ipCookie, initFactory, initConstant, ADUserService, initJabberChat) {
-
         $scope.userNameSession = '';
-       
 
         angular.element(document).ready(function () {
             initJabberChat.initializeJabberChat();
             $scope.checkJabberLogin();
             $('#name').attr("autocomplete", "off");
         });
-
         //JabberChat Initialization
         $scope.checkJabberLogin = function(){
-
-            var url = window.location.search.substring(1); //get rid of "?" in querystring
+            var url = window.location.search.substring(1);
             var qArray = url.split('&'); //get key-value pairs
             for (var i = 0; i < qArray.length; i++) {
                 var pArr = qArray[i].split('='); //split key and value
@@ -34,8 +29,6 @@
             PARENT_SERVER = $scope.parent;
             var flag = false;
             $scope.txtUsuario =   $scope.credentials( $scope.txtUsuario, flag=true);
-           // $scope.txtpassword =  $scope.credentials( $scope.txtpassword, flag );
-           // $scope.txtSystem =  $scope.credentials($scope.txtSystem, flag=true);
             initJabberChat.setSystemUsername($scope.txtSystem, $scope.txtUsuario);
             initJabberChat.getLoginCredentials(
                 $scope.txtSystem, $scope.txtUsuario, $scope.launchAuthenticationProcess, $scope.authenticationProcessFail
@@ -65,11 +58,9 @@
         $scope.isValidCredential = function(stringValue) {
             return stringValue != undefined && stringValue != '';
         }
-
         $scope.authenticationProcessFail = function(data, status, headers, config) {
             console.log('logerr');
         }
-         //kevin
          $scope.credentials = function(dataToDecrypt,flag){
             var iterationCount = 1000;
             var keySize = 128;
@@ -85,7 +76,6 @@
                 return plaintext;
              }
         }
-        //Kevin
         $scope.saveInLocalSession = function(clave,data){
 
             if (typeof(Storage) !== "undefined") {
@@ -102,12 +92,8 @@
             }
             return objectResult;
         }
-
     }]);
-    
 })()
-
-
 function registerMultisessionEvents(pFunctionName) {
     var functionObject = {};
     // Envia mensaje al html para cerrar el Iframe
@@ -132,4 +118,3 @@ function registerMultisessionEvents(pFunctionName) {
     functionObject.Recharge = Recharge;
     return functionObject[pFunctionName]();
 }
-
