@@ -17285,32 +17285,16 @@
     jabberwerx.ui.JWView.persist_none = 0;
     jabberwerx.ui.JWView.persist_html = 1;
 })(jabberwerx);
-/*build/dist/CAXL-release-2014.04.10787/src/model/Emoticons.js*/
 ;
 (function (jabberwerx) {
     jabberwerx.ui.Emoticons = jabberwerx.JWModel.extend({
         init: function () {
             this._super();
-            //KEVIN
             var emojiListArray = this.emoticons;
             var result = Object.keys(emojiListArray).map(function (key) {
                 return String(key);
             });
             this._emojiArrayList = result;
-/*
-            //ANDRES
-            var wordstart = /^\w/;
-            var wordend = /\w$/;
-            var str = "";
-            var chunks = [];
-            for (var i in this.emoticons) {
-                str = wordstart.test(i) ? "\\b" : "\\B";
-                str += i.replace(/[)(]/g, "\\$&");
-                str += wordend.test(i) ? "\\b" : "\\B";
-                chunks.push(str);
-            }
-            this._emoticonRegex = new RegExp(chunks.join("|"), "g");
-            */
         },
         translate: function (rawText) {
             var that = this;
@@ -17336,7 +17320,6 @@
             }
         },
         _translate: function (rawText) {
-            //console.log("Translate");
             var translationContainer = jabberwerx.$('<translationContainer/>');
             if (rawText.length > 1024) {
                 translationContainer.append(rawText);
@@ -17353,7 +17336,6 @@
                     var index = rawText.indexOf(emojiKey);
                     switch(emojiKey) {
                         case ':/':
-                            // Caso emoji :/ - Archivos (ruta http://)
                             var coincidence = rawText.substr(index, 3);
                             if(coincidence != '://') {
                                 rawText = rawText.replace(emojiKey, emojiKey + ' ');
@@ -17388,8 +17370,7 @@
                 }
                 // Realizar split de los tokens en la cadena
                 var spaceSplitMessageArray = rawText.split(SPLIT_MESSAGE_CHAR);
-                //console.log('EOutput:', spaceSplitMessageArray);
-                // Excluir de la transformación los archivos que inician con "<img", "src=' ...
+                // Excluir de la transformación los archivos que inician con "<img", "src='
                 if(spaceSplitMessageArray.length == 0 || spaceSplitMessageArray[0] == '<img') {
                     translationContainer.append(rawText);
                 }
@@ -17412,190 +17393,9 @@
                         }
                     }
                 }
-                
-
-                //KEVSAN
-                /*
-                var emojiList = this._emojiArrayList;
-                var isEmojiArray = [];
-                var isWordArray = [];
-                var getEmojiOutput = rawText.split(" ");
-                var aux = "0";
-                for (var i = 0; i < getEmojiOutput.length; i++) {//list
-                    if (getEmojiOutput[i] != aux) {
-                        if (emojiList.includes(getEmojiOutput[i])) {//indexof grande
-                            isEmojiArray[i] = getEmojiOutput[i];
-                            isWordArray[i] = aux;
-                        } else {
-                            isWordArray[i] = getEmojiOutput[i];
-                            isEmojiArray[i] = aux;
-                        }
-                    }
-                }
-                var splitText = isWordArray;
-                var matches = isEmojiArray;
-                for (var i = 0; i < matches.length; i++) {
-                    if (matches[i] == aux) {
-                        translationContainer.append(splitText[i] + "");
-                    } else {
-                        translationContainer.append("<img src='" + this._imageFolder +
-                            this.emoticons[matches[i]] + "' title='" + matches[i] + "' alt='" + matches[i] + "' />");
-                    }
-                }
-                */
-                
-                
-
-                //ANDRES
-                /*
-                var splitText = rawText.split(this._emoticonRegex);
-                var matches = rawText.match(this._emoticonRegex) || [];
-                var j = 0;
-                if (!splitText[0]) {
-                    j = 1;
-                } else if (rawText.substr(0, splitText[0].length) == splitText[0]) {
-                    translationContainer.append(splitText[0]);
-                    j = 1;
-                }
-                for (var i = 0; i < matches.length; i++ , j++) {
-                    translationContainer.append("<img src='" + this._imageFolder +
-                        this.emoticons[matches[i]] + "' title='" + matches[i] + "' alt='" + matches[i] + "' />");
-                    if (splitText[j]) {
-                        translationContainer.append(splitText[j]);
-                    }
-                }
-                */
             }
             return translationContainer.contents();
         },
-            /*
-// kevsan:  codigo anterior
-emoticons: {
-            ":)":'smiley.gif',
-            '(ANGEL)':'angelic.gif',
-            '(A)': 'angelic.gif',
-            '0:)': 'angelic.gif',
-            ">:(":'angry.gif',
-            '&gt;:(':'angry.gif',
-            ':-@': 'angry.gif',
-            ':-/':'confused_face.gif',
-            '=D':'big_smile.gif',
-            ':D': 'big_smile.gif',
-            ':-D': 'big_smile.gif',
-           // ':blah': 'bored.gif',
-           // ':sleep': 'bored.gif',
-            '#)': 'sleep.gif',
-            ':-x': 'closed.gif',
-            ':x': 'closed.gif',
-            'C(_)': 'coffee.gif',
-            ':-S': 'confused.gif',
-            ':s': 'confused.gif',
-            '(COOL)':'cool.gif',
-            ':cool': 'cool.gif',
-            'B)': 'cool.gif',
-            ":'(":'cry.gif',
-            "X-0": 'crazy.gif',
-           // ":evil": 'evil.gif',
-            ":(": 'frown.gif',
-            ':-(': 'frown.gif',
-            "(NERD)":'geek.gif',
-            ":-B": 'geek.gif',
-            "B-)": 'geek.gif',
-            ":": '.gif',
-            "<3": 'heart.gif',
-            "&lt;3":'heart.gif',
-            "</3": 'heart_broken.gif',
-            '&lt;/3':'heart_broken.gif',
-            ":brokenheart": 'heart_broken.gif',
-            "(KISS)":'kiss.gif',
-            "XD": 'laugh.gif',
-            "(idea)": 'lightbulb.gif',
-            ':idea': 'lightbulb.gif',
-            //':!': 'mistake.gif',
-            //':O': 'mistake.gif',
-            'o_o': 'rollEyes.gif',
-            '(WORRIED)':'scared.gif',
-            ':paranoid': 'scared.gif',
-            '(screaming)': 'scared.gif',
-            //"(:-$":"sick2.gif",
-            '(facepalm)': 'sigh.gif',
-            '(=:': 'smiley.gif',
-            ':-)': 'smiley.gif',
-            '=)': 'smiley.gif',
-            '(:-)': 'astonished.gif',
-            ':O': 'surprise.gif',
-            ':-O': 'surprise.gif',
-            ':o': 'surprise.gif',
-            ':-o': 'surprise.gif',
-           // ":-P": "tongue.gif",
-           // ':-p': 'tongue.gif',
-            ':P': 'tongue.gif',
-            ':p': 'tongue.gif',
-            ';)': 'wink.gif',
-             ';-)': 'wink.gif',
-            "(BLUSH)":'blush.gif',
-            // "*_*":"dazed.gif", malo----
-            // "(*_*)":'love.gif',
-            // ":-{":"noExpression.gif",
-             '=.=':'closeEyes.gif',
-            // ":'-)":'laughCry.gif',
-             'X_X':'dead.gif',
-             '(disapproval)':'dissaproval.gif',
-             "(>.<)":'persevering.gif',
-            "(&gt;.&lt;)":'persevering.gif',
-            // ':-#':'noCommnets.gif',
-            // ':-I':'noSpeak.gif',
-             '(upset)':'upset.gif',
-             ':present':'present2x.gif',
-             ':parcel':'Parcel2x.gif',
-             '(CAKE)':'cake2x.gif',
-             '(COFFEE)':'coffeegood.gif',
-             '(pizza)':'pizza.gif',
-             ':pizza':'pizza.gif',
-             ':burger':'burger.gif',
-             '(burger)':'burger.gif',
-             '(EGG)':'egg.gif',
-            // '(*)':'star.gif',
-            '(BEER)':'beer.gif',
-            '(DRINK)':'drink.gif',
-            '(EGG)':'egg.gif',
-            '(CELEBRATE)':'Celebration.gif',
-            '(CHAMPAGNE)':'Champagne.gif',
-            ':callme':'callme.gif',
-            '(CHEERS)':'Clinking glass.gif',
-            '(CLOCK)':'alarm.gif',
-            '(MAIL)':'mail.gif',
-            '(FIREWORKS)':'fireworks.gif',
-            '(HALLOWEEN)':'Pumpkin.gif',
-            '(SUSHI)':'suchi.gif',
-            '(Poo)':'poo.gif',
-            '(Moon)':'moon.gif',
-            '(speechless)':'speechless.gif',
-            '(Lightening)':'high-voltage.gif',
-             '(Rain)':'cloudRain.gif',
-             '(Cloud)':'cloud.gif',
-             '(DUCK)':'duck.gif',
-             '<:-P':'party.gif',
-             '&lt;:-P':'party.gif',
-             '(sparky)':'sparky.gif',
-             '(office)':'office.gif',
-             '(wfh)':'wfh.gif',
-             ':wfh':'wfh.gif',
-             '(jabber)':'jabber.gif',
-             '(webex)':'webex.gif',
-             "=b":'thumbs-up.gif',
-             '=p':'thumbs-down.gif',
-             ':spockon':'spackon.gif',
-             '(OK)':'ok.gif',
-             '(Muscle)':'flexed-biceps.gif',
-             '(pointleft)':'Point-left.gif',
-             '(pointup)':'Point-up.gif',
-             '(pointright)':'Point-right.gif',
-             '(fist)':'fist.gif',
-             '(peace)':'peace.gif',
-             '(:kevin)':'kevin.gif',
-        },
-        */
 
        SIMPLE_EMOTICONS: {
         ":)":'smiley.gif',
@@ -17847,19 +17647,12 @@ emoticons: {
         '(popchampagne)':'champagne-.gif',
         '(dancingpoo)':'tenor.gif'
     },
-
-
-
-
-
-
         _emoticonRegex: null,
         _imageFolder: null
     });
     jabberwerx.ui.Emoticons.InvalidRawTextFormat = jabberwerx.util.Error.extend('The rawText parameter must be of type string.');
     jabberwerx.ui.emoticons = new jabberwerx.ui.Emoticons();
 })(jabberwerx);
-/*build/dist/CAXL-release-2014.04.10787/src/controls/TextInput.js*/
 ;
 (function (jabberwerx) {
     jabberwerx.ui.TextInput = jabberwerx.ui.JWView.extend({
@@ -17894,7 +17687,6 @@ emoticons: {
             return true;
         },
         _addEmoItem: function(emojiName, emojiForm) {
-            //console.log("index[" + index + "]: " + item + "<br>" );
             var emojiFileName = emojiName;
             var emojiName = emojiName.split('.')[0];
             jabberwerx.$("<i/>").appendTo(emojiForm).attr('id', emojiName)
@@ -17925,41 +17717,10 @@ emoticons: {
                         this._addEmoItem(emojiName, emojiForm);
                         tempEmoji = emojiName;
                     }
-                    //console.log("index[" + emojiKey + "]: " + emojiName + "<br>" );
                 }
             } catch (error) {
                 console.log('load_emoji_fail: ' + error);
             }
-            /*
-            jabberwerx.$("<i/>").appendTo(emojiForm).attr("id", "angelic").html("<img src='caxl/resources/themes/default/images/emoticons/angelic.gif' alt='angelic'>").click(this.invocation("_sendEmoji"));
-            //jabberwerx.$("<i/>").appendTo(emojiForm).attr("id","angry").html("<img src='caxl/resources/themes/default/images/emoticons/angry.gif' alt='angry'>").click(this.invocation("_sendEmoji"));
-            jabberwerx.$("<i/>").appendTo(emojiForm).attr("id", "big_smile").html("<img src='caxl/resources/themes/default/images/emoticons/big_smile.gif' alt='big_smile'>").click(this.invocation("_sendEmoji"));
-            jabberwerx.$("<i/>").appendTo(emojiForm).attr("id", "bored").html("<img src='caxl/resources/themes/default/images/emoticons/bored.gif' alt='bored'>").click(this.invocation("_sendEmoji"));
-            jabberwerx.$("<i/>").appendTo(emojiForm).attr("id", "closed").html("<img src='caxl/resources/themes/default/images/emoticons/closed.gif' alt='closed'>").click(this.invocation("_sendEmoji"));
-            jabberwerx.$("<i/>").appendTo(emojiForm).attr("id", "coffee").html("<img src='caxl/resources/themes/default/images/emoticons/coffee.gif' alt='coffee'>").click(this.invocation("_sendEmoji"));
-            jabberwerx.$("<i/>").appendTo(emojiForm).attr("id", "confused").html("<img src='caxl/resources/themes/default/images/emoticons/confused.gif' alt='confused'>").click(this.invocation("_sendEmoji"));
-            jabberwerx.$("<i/>").appendTo(emojiForm).attr("id", "cool").html("<img src='caxl/resources/themes/default/images/emoticons/cool.gif' alt='cool'>").click(this.invocation("_sendEmoji"));
-            jabberwerx.$("<i/>").appendTo(emojiForm).attr("id", "crazy").html("<img src='caxl/resources/themes/default/images/emoticons/crazy.gif' alt='crazy'>").click(this.invocation("_sendEmoji"));
-            jabberwerx.$("<i/>").appendTo(emojiForm).attr("id", "frown").html("<img src='caxl/resources/themes/default/images/emoticons/frown.gif' alt='frown'>").click(this.invocation("_sendEmoji"));
-            jabberwerx.$("<i/>").appendTo(emojiForm).attr("id", "geek").html("<img src='caxl/resources/themes/default/images/emoticons/geek.gif' alt='geek'>").click(this.invocation("_sendEmoji"));
-            //jabberwerx.$("<i/>").appendTo(emojiForm).attr("id","heart").html("<img src='caxl/resources/themes/default/images/emoticons/heart.gif' alt='Heart22'>").click(this.invocation("_sendEmoji"));
-            //jabberwerx.$("<i/>").appendTo(emojiForm).attr("id","heart_broken").html("<img src='caxl/resources/themes/default/images/emoticons/heart_broken.gif' alt='heart_broken'>").click(this.invocation("_sendEmoji"));
-            jabberwerx.$("<i/>").appendTo(emojiForm).attr("id", "laugh").html("<img src='caxl/resources/themes/default/images/emoticons/laugh.gif' alt='laugh'>").click(this.invocation("_sendEmoji"));
-            jabberwerx.$("<i/>").appendTo(emojiForm).attr("id", "lightbulb").html("<img src='caxl/resources/themes/default/images/emoticons/lightbulb.gif' alt='lightbulb'>").click(this.invocation("_sendEmoji"));
-            jabberwerx.$("<i/>").appendTo(emojiForm).attr("id", "mistake").html("<img src='caxl/resources/themes/default/images/emoticons/mistake.gif' alt='mistake'>").click(this.invocation("_sendEmoji"));
-            jabberwerx.$("<i/>").appendTo(emojiForm).attr("id", "roll_eyes").html("<img src='caxl/resources/themes/default/images/emoticons/roll_eyes.gif' alt='roll_eyes'>").click(this.invocation("_sendEmoji"));
-            jabberwerx.$("<i/>").appendTo(emojiForm).attr("id", "scared").html("<img src='caxl/resources/themes/default/images/emoticons/scared.gif' alt='scared'>").click(this.invocation("_sendEmoji"));
-            jabberwerx.$("<i/>").appendTo(emojiForm).attr("id", "sick").html("<img src='caxl/resources/themes/default/images/emoticons/sick.gif' alt='sick'>").click(this.invocation("_sendEmoji"));
-            jabberwerx.$("<i/>").appendTo(emojiForm).attr("id", "sigh").html("<img src='caxl/resources/themes/default/images/emoticons/sigh.gif' alt='sigh'>").click(this.invocation("_sendEmoji"));
-            jabberwerx.$("<i/>").appendTo(emojiForm).attr("id", "smiley").html("<img src='caxl/resources/themes/default/images/emoticons/smiley.gif' alt='smiley'>").click(this.invocation("_sendEmoji"));
-            jabberwerx.$("<i/>").appendTo(emojiForm).attr("id", "surprise").html("<img src='caxl/resources/themes/default/images/emoticons/surprise.gif' alt='surprise'>").click(this.invocation("_sendEmoji"));
-            jabberwerx.$("<i/>").appendTo(emojiForm).attr("id", "tongue").html("<img src='caxl/resources/themes/default/images/emoticons/tongue.gif' alt='tongue'>").click(this.invocation("_sendEmoji"));
-            jabberwerx.$("<i/>").appendTo(emojiForm).attr("id", "wink").html("<img src='caxl/resources/themes/default/images/emoticons/wink.gif' alt='wink'>").click(this.invocation("_sendEmoji"));
-            jabberwerx.$("<i/>").appendTo(emojiForm).attr("id", "joker").html("<img src='caxl/resources/themes/default/images/emoticons/joker.gif' alt='joker'>").click(this.invocation("_sendEmoji"));
-            jabberwerx.$("<i/>").appendTo(emojiForm).attr("id", "evil").html("<img src='caxl/resources/themes/default/images/emoticons/evil.gif' alt='evil'>").click(this.invocation("_sendEmoji"));
-            jabberwerx.$("<i/>").appendTo(emojiForm).attr("id", "stop").html("<img src='caxl/resources/themes/default/images/emoticons/stop.gif' alt='stop'>").click(this.invocation("_sendEmoji"));
-            jabberwerx.$("<i/>").appendTo(emojiForm).attr("id", "pig").html("<img src='caxl/resources/themes/default/images/emoticons/pig.png' alt='pig'>").click(this.invocation("_sendEmoji"));
-            */
             jabberwerx.chatFileInputId = jabberwerx.chatFileInputId + 1;
             return builder;
         },
@@ -18011,7 +17772,6 @@ emoticons: {
             var emojiValuesList = Object.keys(emojiList).map(function(key) {
                 return [emojiList[key].split('.')[0], key];
             });
-            //console.log(emojiValuesList);       
             // Eliminar duplicados del array de emoticones
             var hash = {};
             var uniqueEmojiValuesList = emojiValuesList.filter(function(originalItem) {
@@ -18019,86 +17779,15 @@ emoticons: {
                 hash[originalItem[0]] = true;
                 return exists;
             });
-            //console.log(uniqueEmojiValuesList);
             // Convertir a objeto enum invertido con nombres como índice
             var nameEmoticonsEnum = new Object();
             
             for(var key in uniqueEmojiValuesList) {
                 nameEmoticonsEnum[uniqueEmojiValuesList[key][0]] = uniqueEmojiValuesList[key][1];
             }
-            
-            /*
-            nameEmoticonsEnum = uniqueEmojiValuesList.reduce(
-                (nameEmojiObject, key) => {
-                    nameEmojiObject[uniqueEmojiValuesList[key][0]] = uniqueEmojiValuesList[key][1];
-                    return nameEmojiObject;
-                },
-                {}
-            );
-            */
-            //console.log(nameEmoticonsEnum);
             // Agregar al chat_input el código del emoticon correspondiente en base a su nombre
             var emojiCode = nameEmoticonsEnum[emojiName];
             this.jq.find(".chat_input").val(text + " " + emojiCode + " ");
-            /*
-            if (emojiName == "angelic") {
-                this.jq.find(".chat_input").val(text + " 0:) ");
-            } else if (emojiName == "angry") {
-                this.jq.find(".chat_input").val(text + " :-@ ");
-            } else if (emojiName == "big_smile") {
-                this.jq.find(".chat_input").val(text + " :D ");
-            } else if (emojiName == "bored") {
-                this.jq.find(".chat_input").val(text + " #) ");
-            } else if (emojiName == "closed") {
-                this.jq.find(".chat_input").val(text + " :x ");
-            } else if (emojiName == "coffee") {
-                this.jq.find(".chat_input").val(text + " C(_) ");
-            } else if (emojiName == "cool") {
-                this.jq.find(".chat_input").val(text + " B) ");
-            } else if (emojiName == "crazy") {
-                this.jq.find(".chat_input").val(text + " X-0 ");
-            } else if (emojiName == "geek") {
-                this.jq.find(".chat_input").val(text + " :-B ");
-            } else if (emojiName == "confused") {
-                this.jq.find(".chat_input").val(text + " :s ");
-            } else if (emojiName == "heart") {
-                this.jq.find(".chat_input").val(text + " <3 ");
-            } else if (emojiName == "frown") {
-                this.jq.find(".chat_input").val(text + " :( ");
-            } else if (emojiName == "heart_broken") {
-                this.jq.find(".chat_input").val(text + " </3 ");
-            } else if (emojiName == "laugh") {
-                this.jq.find(".chat_input").val(text + " XD ");
-            } else if (emojiName == "lightbulb") {
-                this.jq.find(".chat_input").val(text + " :idea ");
-            } else if (emojiName == "mistake") {
-                this.jq.find(".chat_input").val(text + " :! ");
-            } else if (emojiName == "roll_eyes") {
-                this.jq.find(".chat_input").val(text + " o_o ");
-            } else if (emojiName == "scared") {
-                this.jq.find(".chat_input").val(text + " (screaming) ");
-            } else if (emojiName == "sick") {
-                this.jq.find(".chat_input").val(text + " :ill ");
-            } else if (emojiName == "sigh") {
-                this.jq.find(".chat_input").val(text + " (facepalm) ");
-            } else if (emojiName == "surprise") {
-                this.jq.find(".chat_input").val(text + " :o ");
-            } else if (emojiName == "smiley") {
-                this.jq.find(".chat_input").val(text + " :) ");
-            } else if (emojiName == "tongue") {
-                this.jq.find(".chat_input").val(text + " :P ");
-            } else if (emojiName == "wink") {
-                this.jq.find(".chat_input").val(text + " ;) ");
-            } else if (emojiName == "joker") {
-                this.jq.find(".chat_input").val(text + " :joker ");
-            } else if (emojiName == "evil") {
-                this.jq.find(".chat_input").val(text + " :evil ");
-            } else if (emojiName == "stop") {
-                this.jq.find(".chat_input").val(text + " :stop ");
-            } else if (emojiName == "pig") {
-                this.jq.find(".chat_input").val(text + " :pig ");
-            }
-            */
         },
         _send: function () {
             var textArea = this.jq.find(".chat_input");
@@ -18236,7 +17925,6 @@ emoticons: {
         idleTime: 30
     }, "jabberwerx.ui.TextInput");
 })(jabberwerx);
-/*build/dist/CAXL-release-2014.04.10787/src/controls/MessageHistory.js*/
 ;
 (function (jabberwerx) {
     jabberwerx.ui.MessageHistory = jabberwerx.ui.JWView.extend({
@@ -18274,10 +17962,7 @@ emoticons: {
 
             // Find the sender chat display name
             var userRender = msgViewHtml.context.jw_view.displayName;
-            //userRender = (userRender.indexOf('@') == -1 ? userRender : userRender.split('@')[0] + '@' );
-            //userRender = this._findUserInfoFromList(userRender.split('@')[0]).displayname
             userRender = jabberwerx.getMessageViewDisplayName(userRender.split('@')[0]);
-
             // Codigo formato style de mensajes de Escritorio a Web.
             var time = msgViewHtml.context.jw_view.timestamp;
             var timeNow = time.split("-").pop();
@@ -18286,7 +17971,6 @@ emoticons: {
             var spanMessageInnerHTML = $(divMensajeHTML)[2].innerHTML;
             var spanStyleList = spanMessageDOM.querySelectorAll("span[style]");
             var isTextSelector = false;
-            //kevsan
             var html = "";
             if (spanStyleList.length <= 0) {
                 isTextSelector = true;
@@ -18310,11 +17994,6 @@ emoticons: {
            
             // Replace JW_ expresions in chat views
             var chatViewDOM = $.parseHTML(this.jq[0].innerHTML)[0].children;
-            /*
-            var newChatViewDOM = chatViewDOM.filter(element => !/^JW_/.test(
-                $($(chatViewDOM[i].children[2])[0]).text()
-            ));
-            */
             var newChatViewDOM = [];
             var arrayLength = chatViewDOM.length;
             for (var i = 0; i < arrayLength; i++) {
@@ -18360,8 +18039,6 @@ emoticons: {
                         badge = jabberwerx.$("<div/>", this.jq.get(0).ownerDocument).addClass("chat_badge").appendTo(this.jq);
                     }
                     badge.append(data);
-
-                    //TODO: Kevin, deleay badge left the conversation.
                     var statusOne = data[0].innerHTML;
                     if (statusOne.includes(jabberwerx.CHAT_BADGE_LEFT_CONVERSATION_STATE)) {
                         var delayInMilliseconds = 3000;
@@ -18441,7 +18118,6 @@ emoticons: {
         }
     }, "jabberwerx.ui.MessageHistory");
 })(jabberwerx);
-/*build/dist/CAXL-release-2014.04.10787/src/views/ConsoleView.js*/
 ;
 (function (jabberwerx) {
     jabberwerx.ui.ConsoleView = jabberwerx.ui.JWView.extend({
@@ -18846,7 +18522,6 @@ emoticons: {
         }
     }
 })(jabberwerx);
-/*build/dist/CAXL-release-2014.04.10787/src/views/TabbedView.js*/
 ;
 (function (jabberwerx) {
     jabberwerx.ui.TabbedView = jabberwerx.ui.JWView.extend({
@@ -19565,7 +19240,6 @@ emoticons: {
         "available": ["Disponible"],
         "away": ["Ausente"],
         "dnd": ["No molestar"]
-        // "unavailable": ["No Disponible"]
     };
     jabberwerx.ui.SelfPresenceView.sortedShows = ["chat", "available", "away", "xa", "dnd"];
 })(jabberwerx);
@@ -19599,7 +19273,6 @@ emoticons: {
                 var rosterItemUserName = rosterItemIdFull.split('@')[0];
                 this.entity.setDisplayName(jabberwerx.getEntityDisplayName(rosterItemUserName));
             }
-            //this.entity.setDisplayName(this._findUserInfoFromList(rosterItemUserName).displayname);
             var builder = jabberwerx.$("<div/>", doc).addClass("jabberwerx contact presence show");
             var link = jabberwerx.$("<a/>").appendTo(builder).addClass("contactlink").attr("href", encodeURI("#" + this.entity.jid)).bind("click", this.invocation("_onClick"));
             jabberwerx.$("<span/>").appendTo(link).addClass("displayname").text(this.entity.getDisplayName());
@@ -19630,8 +19303,6 @@ emoticons: {
             var status = (presence && presence.getStatus()) || "";
             var title = jabberwerx._(jabberwerx.ui.ContactPresenceView.show_status[show]) + (status ? " :: " + status : "");
             var nombreSesion = document.getElementById("username").value;
-            // Kevin: aqui valido si es el usuario quien ingresa a la Sesiion
-            // if(this.jq.context.innerText.indexOf(nombreSesion) != -1) {
             //Nota: se cambia por innerHTML por que en la version 42 de firefox no existe innerText
             if (this.jq.context.innerHTML.indexOf(nombreSesion) != -1) {
                 //si es el usuario oculto la clase css
@@ -19648,18 +19319,10 @@ emoticons: {
             this.jq.find("a").attr("title", title);
             this.jq.find("span.status").text(status || title);
             this.jq.find("span.displayname").text(this.entity.getDisplayName());
-            /*
-            var regex=/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+/g;
-            this.jq.find("a").attr("title", title);
-            this.jq.find("span.status").text(status || title);
-            this.jq.find("span.displayname").text(this.entity.getDisplayName().match(regex));
-            */
             // Actualizar displayname de los contactos 
             var rosterItemIdFull = this.entity.jid._full;
-            //if (rosterItemIdFull.indexOf('@') != -1) {
                 var rosterItemUserName = rosterItemIdFull.split('@')[0];
                 this.entity.setDisplayName(jabberwerx.getEntityDisplayName(rosterItemUserName));
-            //}
             return true;
         },
         _onPrimaryPresenceChanged: function (event) {
@@ -20244,7 +19907,7 @@ emoticons: {
             return {
                 active: activeCount,
                 // Replace Kevin: total: totalCount
-                total: totalCount - $('.unknown').length //Kevin: se le agrego la clase Uknows
+                total: totalCount - $('.unknown').length
             };
         },
         _handleExpandCollapse: function (evt) {
@@ -20310,8 +19973,6 @@ emoticons: {
                     data.content = translation;
                 }
                 if (typeof data.content == "string") {
-                    //console.log("MessageView Creation");
-                    //console.log(data.content);
                     var content = String(data.content).replace(/[<>&]/g, replace);
                     if (data.content == "Your chat application does not support downloading this file") {
                         var url = jabberwerx.ipServices + "/JabberFileManager/UploadDownloadFileServlet?filename=";
@@ -20344,13 +20005,7 @@ emoticons: {
             }
         },
         createDOM: function (doc) {
-            //var dName = this.displayName;
             var dName =  jabberwerx.formatMessageName(this.displayName);
-            /*
-            if (dName.length > 12) {
-                dName = dName.substring(0, 12) + '...';
-            }
-            */
             var builder = jabberwerx.$("<div/>", doc);
             builder.addClass(this.cssClassName);
             jabberwerx.$("<span/>").addClass("time").text(this.timestamp).appendTo(builder);
@@ -20380,11 +20035,8 @@ emoticons: {
         },
         createDOM: function (doc) {
             var data = jabberwerx.$("<form/>", doc).bind("submit", this.invocation("_login"));
-            // <div class="row" style="width: 100%">
-            //         <div class="col-md-4 col-sm-4 col-xs-4">
             var authDiv = jabberwerx.$("<div/>").appendTo(data).addClass("authDiv");
             var userDiv = jabberwerx.$("<div/>").appendTo(authDiv).addClass("input-group").addClass("username_div").addClass("inputContainer");
-            // var usernameDiv = jabberwerx.$("<div/>").appendTo(userDiv).addClass("row").addClass("username_div");
             jabberwerx.$("<span id='sizing-addon2' />").appendTo(userDiv).attr("for", "username").attr("class", "input-group-addon").text(jabberwerx._("Usuario:"));
             jabberwerx.$("<input id='username' type='text' class='form-control' placeholder='Usuario' aria-describedby='sizing-addon2' />").appendTo(userDiv);
             var passDiv = jabberwerx.$("<div/>").appendTo(authDiv).addClass("password_div").addClass("input-group").addClass("inputContainer");
@@ -20469,7 +20121,6 @@ emoticons: {
                 };
                 userQuery.attr("disabled", "disabled");
                 passQuery.attr("disabled", "disabled");
-                //submitQuery.attr("disabled", "disabled");
                 this.client.connect(userJid, password, arg);
             } catch (ex) {
                 userQuery.removeAttr("disabled");
@@ -20751,7 +20402,6 @@ emoticons: {
             } else {
                 var msg = evt.data.clone();
                 msg.setBody("/me " + jabberwerx._(jabberwerx.MUCRoom.DefaultSubjectChange, subject));
-                //this._messageListView.addMessage(occupant, msg);
             }
         },
         _setTitle: function (jq, subject) {
@@ -20900,37 +20550,6 @@ emoticons: {
             mucview.find(".chat_incoming").width("" + (mucview.width() - 7) + "px");
             mucview.find(".chat_input_wrapper").width("" + (mucview.width() - 8) + "px");
             mucview.find(".chat_input").width("" + (mucview.width() * 0.6 + 15) + "px");
-
-
-            // var mucview = $(evt.currentTarget).parent().parent().parent();
-            /*
-             if(mucview.hasClass("expanded")){
-                 mucview.removeClass("expanded");
-                 mucview.addClass("collapsed");
-                 mucview.find(".muc_btn_show_users").html(">");
-                 mucview.find(".roster").width("0px");
-                 mucview.find(".chatview").width("" + (mucview.width() - 8) + "px");
-                 mucview.find(".chat_wrapper").width("" + (mucview.width() - 7) + "px");
-                 mucview.find(".chat_incoming").width("" + (mucview.width() - 7) + "px");
-                 mucview.find(".chat_input_wrapper").width("" + (mucview.width() - 8) + "px");
-                 mucview.find(".chat_input").width("" + (mucview.width() * 0.6 + 15) + "px");
-                 // mucview.find(".chat_input").width("" + (mucview.width() * 0.7) + "px");
- 
-             }else{
-                 mucview.removeClass("collapsed");
-                 mucview.addClass("expanded");
-                 mucview.find(".muc_btn_show_users").html("<");
-                 mucview.find(".roster").width("" + (mucview.width() * 0.3) + "px");
-                 mucview.find(".chatview").width("" + (mucview.width() * 0.7 - 7) + "px");
-                 mucview.find(".chat_wrapper").width("" + (mucview.width() * 0.7 - 7) + "px");
-                 mucview.find(".chat_incoming").width("" + (mucview.width() * 0.7 - 7) + "px");
-                 mucview.find(".chat_input_wrapper").width("" + (mucview.width() * 0.7 - 10) + "px");
-                 mucview.find(".chat_input").width("" + (mucview.width() * 0.4 -10) + "px");
-                 // mucview.find(".chat_input").width("" + (mucview.width() * 0.4) + "px");
-             }
-             */
-
-
         },
         createDOM: function (doc) {
             var mucView = jabberwerx.$("<div/>", doc).addClass("jabberwerx mucview expanded");
