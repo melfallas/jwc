@@ -9,9 +9,8 @@
             $scope.checkJabberLogin();
             $('#name').attr("autocomplete", "off");
         });
-          /**
-             * inicializacion del jabberChat
-             */
+
+        // inicializacion del jabberChat
         $scope.checkJabberLogin = function(){
             var url = window.location.search.substring(1);
             var qArray = url.split('&'); //get key-value pairs
@@ -27,9 +26,8 @@
                     }
                 }
             }
-             /**
-             * Modificación para lo que es multisesion
-             */
+
+            // Modificación para lo que es multisesion
             PARENT_SERVER = $scope.parent;
             var flag = false;
             $scope.txtUsuario =   $scope.credentials( $scope.txtUsuario, flag=true);
@@ -88,15 +86,14 @@
         }
         $scope.getFromLocalSession = function(p_itemName,p_object){
             var objectResult = {};
-             /**
-             * verificar el localStprage
-             */
+
+            // verificar el localStprage
             if (typeof(Storage) !== "undefined") {
                 objectResult = JSON.parse(sessionStorage.setItem(p_itemName, JSON.stringify(p_object)));
             } else {
-            /**
-             * localStorage no es soportado
-             */
+
+             //localStorage no es soportado
+
             }
             return objectResult;
         }
@@ -104,36 +101,29 @@
 })()
 function registerMultisessionEvents(pFunctionName) {
     var functionObject = {};
-          /**
-             *  Envia mensaje al html para cerrar el Iframe
-             */
+
+            //Envia mensaje al html para cerrar el Iframe
     function CloseIframe() {
         parent.postMessage('Close()', PARENT_SERVER);
     }
-             /**
-             * Recibe el mensaje para restaura la sesion cerrada
-             */
+
+    //Recibe el mensaje para restaura la sesion cerrada
     function receiver(event) {
-            /**
-             * registrar dominio de donde proviene el evento
-             */
+
+         //registrar dominio de donde proviene el evento
         if (event.origin == PARENT_SERVER) {
             eval(event.data);
         }
     }
-            /**
-             * Se agrega el escuchador de eventos para el llamado del html
-             */
+    // Se agrega el escuchador de eventos para el llamado del html
     window.addEventListener('message', receiver, false);
-          /**
-             * Restaura la sesion haciendo click en el login
-             */
+
+     // Restaura la sesion haciendo click en el login
     function Recharge() {
         $(".auth_submit").trigger('click');
     }
-          /**
-             * Retornar funciones para cierre y recarga del iframe
-             */
+
+    //Retornar funciones para cierre y recarga del iframe
     functionObject.CloseIframe = CloseIframe;
     functionObject.Recharge = Recharge;
     return functionObject[pFunctionName]();
