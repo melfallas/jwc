@@ -15,26 +15,23 @@
             HEADER_CONTENT_TYPE_JSON: 'application/json',
             HEADER_CONTENT_TYPE_PDF: 'application/pdf',
 
-            /**
-             * Constantes del archivo jabberWrx.ui.js
-             */
+
+            // Constantes del archivo jabberWrx.ui.js
             FILE_DOWNLOAD_TARGET: '_blank',
             CHAT_BADGE_IS_WRITING_STATE: 'está escribiendo...',
             CHAT_BADGE_LEFT_CONVERSATION_STATE: 'ha salido de la conversación...',
 
-            /**
-             * Constantes utilizada para mostrar mensaje
-             */
+
+            // Constantes utilizada para mostrar mensaje
             CHAT_VIEW_LOADING_LABEL : 'Cargando la conversación...',
 
-            /**
-             * Constantes de utilidad
-             */
+
+            //Constantes de utilidad
+
             UTL_DEBUG_MODE : 0,
 
-            /**
-             * constantes usadas para localStorage
-             */
+
+             // constantes usadas para localStorage
             AD_USER_LIST : 'adusrlst',
             AUTH_JABBER_USERNAME : 'autjwcusr',
             AUTH_JABBER_PASS : 'autjwcps',
@@ -46,9 +43,8 @@
 
             //------------------------------- USER SERVICES and HOST Constants ------------------------------//
             
-/**
- *   //--------- CONSTANTES DE AMBIENTE DATASYS ---------/
- 
+    //--------- CONSTANTES DE AMBIENTE DATASYS ---------/
+ /*
             Función getADUserInfoListByDisplayName definición:
             COMPONENT_SERVER : 'http://172.31.251.15',
             COMPONENT_ROUTE : '/jabber-component',
@@ -91,16 +87,14 @@
             
 
 
-            /**
-             * Constantes URL para servicios del usuario
-             */
+            
+            // Constantes URL para servicios del usuario
             AD_ALL_USER_SERVICE_URL : '/api/UsuarioADObtenerLista',
             AD_USER_SERVICE_BY_NAME_URL : '/api/UsuarioADObtenerPorNombre/kevin.sandi/',
             AD_AUTH_USER_SERVICE_URL : '/api/UsuarioADObtenerPorCredenciales/melvin.fallas/password/',
 
-            /**
-             * Constantes de los servicios de JAVA
-             */
+
+            //Constantes de los servicios de JAVA
             SERVER_PORT: ':8080',
             SERVER_URL_VALIDATE_DOC: '/validateDocument',
             SERVER_URL_SEARCH_DOC: '/getDocument',
