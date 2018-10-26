@@ -1131,7 +1131,6 @@
                      * The room's subject is one opf its properties and is
                      * available via room.properties.subject.
                      */
-                    //$('#subjectLabel').html(room.properties.subject);
                 });
 
                 /**
@@ -1160,11 +1159,12 @@
         }]);
 
 })()
-
+/************************************************************************************************************************************* */
 /**
    * Función isValidADUser definición:
    *  Obtiene una cadena de tipo string nombre lo compara contra una lista para encontrarlo.
    * @param {var} p_username - variable para obtener el valor del usuario
+   * @returns {isValid}  - retorna la variable para saber si es falso o verdadero que el ususario se encuentra en la lista del session storage.
    */
 function isValidADUser(p_username) {
     var isValid = false;
@@ -1172,29 +1172,24 @@ function isValidADUser(p_username) {
         .filter(userObjet => userObjet.username.toLowerCase() == p_username.toLowerCase());
     isValid = isNotEmptyArray(userList);
     return isValid;
-         /**
-     *
-     * @returns {isValid}  - retorna la variable para saber si es falso o verdadero que el ususario se encuentra en la lista del session storage.
-     */
 }
 
 /**
    * Función getMessageDisplayName definición:
    *  Obtiene una cadena de tipo string y la formatea en un mensaje con tamaño de 15 caracteres lo maximo
    * @param {var} p_username - variable para obtener el valor del usuario
+   * @returns {messageName}  - retorna la variable para obtener el valor del usuario y la manda a la funcion formatMessageName
    */
 function getMessageDisplayName(p_username) {
     return formatMessageName(findUserInfoFromList(p_username, getADAllUserInfoList()).displayname);
-      /**
-     *
-     * @returns {messageName}  - retorna la variable para obtener el valor del usuario y la manda a la funcion formatMessageName
-     */
 }
 
 /**
    * Función formatMessageName definición:
    *  Obtiene una cadena de tipo string y la formatea en un mensaje con tamaño de 15 caracteres lo maximo
    * @param {var} pName - variable para obtener el valor del usuario
+   * @returns {messageName}  - retorna la variable para obtener el valor del usuario
+   * 
    */
 function formatMessageName(pName) {
     var WORD_SIZE = 15;
@@ -1204,31 +1199,26 @@ function formatMessageName(pName) {
         messageName = messageName.substring(0, WORD_SIZE) + '';
     }
     return messageName;
-    /**
-     *
-     * @returns {messageName}  - retorna la variable para obtener el valor del usuario
-     */
+
 }
 
 /**
    * Función getDisplayNameByUserName definición:
    * usado para encontrar el ussuario en la lista de usuarios.
    * @param {var} p_username - variable para obtener el valor del usuario
-   * * @param {Array} p_userArray - lista de usuarios.
+   * @param {Array} p_userArray - lista de usuarios.
+   * @returns {findUserInfoFromList}  - retorna el nombre de usario y el nombre representante
    */
 function getDisplayNameByUserName(p_username) {
     return findUserInfoFromList(p_username, getADAllUserInfoList()).displayname;
-      /**
-     *
-     * @returns {findUserInfoFromList}  - retorna el nombre de usario y el nombre representante
-     */
 }
 
 /**
    * Función findUserInfoFromList definición:
    * usado para encontrar el ussuario en la lista de usuarios.
    * @param {var} p_username - variable para obtener el valor del usuario
-   * * @param {Array} p_userArray - lista de usuarios.
+   * @param {Array} p_userArray - lista de usuarios.
+   *  @returns {objectResult}  - retorna el nombre de usario por medio de la lista.
    */
 function findUserInfoFromList(p_username, p_userArray) {
     var objectResult = {};
@@ -1242,10 +1232,6 @@ function findUserInfoFromList(p_username, p_userArray) {
         objectResult = createDefaultUserInfo(p_username);
     }
     return objectResult;
-    /**
-     *
-     * @returns {objectResult}  - retorna el nombre de usario por medio de la lista.
-     */
 }
 
 /**
@@ -1267,13 +1253,10 @@ function createDefaultUserInfo(p_username) {
    * usado para  verificar si el valor se fuardo en el localStorage 
    * @param {var} p_itemName - obtiene el nombre del item para ser guardado en el sesion storage.
    * @param {var} p_object - tipo de objeto con el que se va a formatear
+   * @returns {p_itemName}  - retorna el nombre del item para ser guardado en el sesion storage..
    */
 function isUsersListLoadedInStorage(p_itemName) {
     return !(sessionStorage.getItem(p_itemName) === null);
-       /**
-     *
-     * @returns {p_itemName}  - retorna el nombre del item para ser guardado en el sesion storage..
-     */
 }
 
 /**
@@ -1298,6 +1281,7 @@ function saveInLocalStorage(p_itemName, p_object) {
    * Función getFromLocalStorage definición:
    * usado para  obtener un nombre de item 
    * @param {var} p_itemName - obtiene el nombre del item desde el sesion storaage.
+   * @returns {objectResult}  - retorna el nombre de usario por medio de la lista.
    */
 function getFromLocalStorage(p_itemName) {
     var objectResult = {};
@@ -1310,10 +1294,6 @@ function getFromLocalStorage(p_itemName) {
         console.log('Not supported storage');
     }
     return objectResult;
-       /**
-     *
-     * @returns {objectResult}  - retorna el nombre de usario por medio de la lista.
-     */
 }
 
 /**
@@ -1321,6 +1301,7 @@ function getFromLocalStorage(p_itemName) {
    * usado para  obtener informacion del usuario.
    * @param {var} $http - obtiene el usuario por medio de la lista
    * @param {var} p_username - obtiene el usuario por medio de la lista
+   * @returns {userList}  - retorna el nombre de usario por medio de la lista.
    */
 function getJabberUserInfo($http, p_username) {
       $http({
@@ -1338,10 +1319,6 @@ function getJabberUserInfo($http, p_username) {
      });
     var result = {id:1, username : username, display_name : this.responseText}
     return result;
-     /**
-     *
-     * @returns {userList}  - retorna el nombre de usario por medio de la lista.
-     */
 }
 
 function getUserInfo(username) {
@@ -1353,6 +1330,7 @@ function getUserInfo(username) {
    * Función getUserNameList definición:
    * usado para  obtener el usuario por medo de una lista
    * @param {var} p_userNameSearch - obtiene el usuario por medio de la lista
+   * @returns {userList}  - retorna el nombre de usario por medio de la lista.
    */
 function getUserNameList(p_userNameSearch) {
     var matchPatterm = new RegExp('^' + p_userNameSearch);
@@ -1374,10 +1352,6 @@ function getUserNameList(p_userNameSearch) {
         console.log('l ' + count);
     }
     return userList;
-         /**
-     *
-     * @returns {userList}  - retorna el nombre de usario por medio de la lista.
-     */
 }
 /**
    * Función getUsernameFilter definición:
@@ -1393,17 +1367,20 @@ function getUsernameFilter() {
     document.getElementById('datalist').innerHTML = options;
 }
 
+/**
+   * Función isNotEmptyArray definición:
+   * usada para filtrar el nomre por medio de la lista.
+   * @param {p_array}  - obtiene la lista de usuarios del AD
+   * @returns {p_array}  - retorna la lista de usuarios del AD
+   */
 function isNotEmptyArray(p_array) {
     return Array.isArray(p_array) && p_array != null && typeof p_array !== 'undefined' && p_array.length > 0
-      /**
-     *
-     * @returns {p_array}  - retorna la lista de usuarios del AD
-     */
 }
 
 /**
    * Función getADAllUserInfoList definición:
    * usado para obtener la lista del AD
+   * @returns {userList}  - retorna la lista de usuarios del AD
    */
 function getADAllUserInfoList() {
     var userList = getFromLocalStorage("adusrlst");
@@ -1419,17 +1396,14 @@ function getADAllUserInfoList() {
         var count = isNotEmptyArray(userList) ? userList.length : 0;
         console.log('a ' + count);
     }
-    return userList;
-    /**
-     *
-     * @returns {userList}  - retorna la lista de usuarios del AD
-     */
+    return userList
 }
 
 /**
    * Función getADUserInfoListByDisplayName definición:
    * usado para  cancelar las alertas cuando se inicia sesion.
    * @param {var} p_displayNameSearch - variable usada para cargar las lista del local Storage
+   * @returns {userList}  - retorna la variable usada para cargar las lista del local Storage
    */
 function getADUserInfoListByDisplayName(p_displayNameSearch) {
     var userList = getFromLocalStorage("adusrlst")
@@ -1451,16 +1425,14 @@ function getADUserInfoListByDisplayName(p_displayNameSearch) {
         console.log('f ' + count);
     }
     return userList;
-    /**
-     *
-     * @returns {userList}  - retorna la variable usada para cargar las lista del local Storage
-     */
+
 }
 
 /**
    * Función getADUserList definición:
    * usado para  cancelar las alertas cuando se inicia sesion.
    * @param {var} userList - variable usada para cargar las lista del sesion Storage
+   * @returns {userList}  - retorna la carga de la lista del sesion Storage.
    */
 function getADUserList(p_userNameSearch) {
     // se obtiene la ista de sessionStorage
@@ -1481,39 +1453,28 @@ function getADUserList(p_userNameSearch) {
         console.log('l ' + count);
     }
     return userList;
-      /**
-     *
-     * @returns {userList}  - retorna la carga de la lista del sesion Storage.
-     */
 }
 
 /**
    * Función setScrollDown definición:
    * utilzada para bajar el scroll cada vez que se ingresa a una ventana de chat.
-
+   * @returns {div.chat_incoming}  - utilzada para retornar el scroll cada vez que se ingresa a una ventana de chat.
    */
 function setScrollDown(){
     var chatBox = $("div.chat_incoming");
     $.each(chatBox, function( index, chatItem ) {
         if(chatItem.scrollHeight != 0) {
            return $("div.chat_incoming").scrollTop(chatItem.scrollHeight);
-     /**
-     *
-     * @returns {div.chat_incoming}  - utilzada para retornar el scroll cada vez que se ingresa a una ventana de chat.
-     */
         }
     });
 }
 /**
    * Función getUserNameSession definición:
    * usada para obtener el valor del nombre de ususario.
+   * @returns {username}  usada para retornar el valor del nombre de ususario.
    */
 function getUserNameSession() {
     return document.getElementById("username").value;
-        /**
-     *
-     * @returns {username}  usada para retornar el valor del nombre de ususario.
-     */
 }
 
 function getChatMessageDisplayName(username) {
@@ -1575,16 +1536,12 @@ function closeEmoticonPopup() {
 /**
    * Función cleanNameRoom definición:
    * Función que elimina identificador numérico de los nombres de salas de chat.
-   * @param {String} roomName - valor para identificar el numerico de las salas de chat y remplazarlo.
+   * @param {String} roomName - valor para identificar el numerico de las salas de chat y remplazarlo
+   * @returns {roomName} retorna valor para identificar el numerico de las salas de chat y remplazarlo..
    */
 // 
 function cleanNameRoom(roomName) {
     return (roomName == undefined ? roomName : roomName.replace(/[0-9]{3,50}$/i, ""));
-      /**
-     * obtener el valor de roomName.
-     *
-     * @returns {roomName} retorna valor para identificar el numerico de las salas de chat y remplazarlo.
-     */
 }
 
 /**
