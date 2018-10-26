@@ -15,18 +15,26 @@
             HEADER_CONTENT_TYPE_JSON: 'application/json',
             HEADER_CONTENT_TYPE_PDF: 'application/pdf',
 
-            // JabberWerx Constants
+            /**
+             * Constantes del archivo jabberWrx.ui.js
+             */
             FILE_DOWNLOAD_TARGET: '_blank',
             CHAT_BADGE_IS_WRITING_STATE: 'está escribiendo...',
             CHAT_BADGE_LEFT_CONVERSATION_STATE: 'ha salido de la conversación...',
 
-            // View Constants
+            /**
+             * Constantes utilizada para mostrar mensaje
+             */
             CHAT_VIEW_LOADING_LABEL : 'Cargando la conversación...',
 
-            // Utility Constants
+            /**
+             * Constantes de utilidad
+             */
             UTL_DEBUG_MODE : 0,
 
-            // LocalStorage Variables
+            /**
+             * constantes usadas para localStorage
+             */
             AD_USER_LIST : 'adusrlst',
             AUTH_JABBER_USERNAME : 'autjwcusr',
             AUTH_JABBER_PASS : 'autjwcps',
@@ -38,8 +46,10 @@
 
             //------------------------------- USER SERVICES and HOST Constants ------------------------------//
             
-            //--------- CONSTANTES DE AMBIENTE DATASYS ---------/
-            /*
+/**
+ *   //--------- CONSTANTES DE AMBIENTE DATASYS ---------/
+ 
+            Función getADUserInfoListByDisplayName definición:
             COMPONENT_SERVER : 'http://172.31.251.15',
             COMPONENT_ROUTE : '/jabber-component',
             //FILE_SERVER_DOMAIN: 'http://localhost',
@@ -57,9 +67,10 @@
             //MESSAGE_RECEIVED_SELECTOR_DOMAIN: '\\@datasys\\.la',
             MESSAGE_RECEIVED_SELECTOR_PREFIX: 'jabberwerx_tabdata_chat:',
             MESSAGE_RECEIVED_SELECTOR_DOMAIN: '@datasys.la',
-            */
+   */
+
             //--------- CONSTANTES DE AMBIENTE GUATEMALA ---------/
-            
+                   
             COMPONENT_SERVER : 'http://mp-fsapp01.mp.gob.gt',
             COMPONENT_ROUTE : '',
             FILE_SERVER_DOMAIN: 'http://mp-fsapp01.mp.gob.gt',
@@ -80,12 +91,16 @@
             
 
 
-            // URL User Services
+            /**
+             * Constantes URL para servicios del usuario
+             */
             AD_ALL_USER_SERVICE_URL : '/api/UsuarioADObtenerLista',
             AD_USER_SERVICE_BY_NAME_URL : '/api/UsuarioADObtenerPorNombre/kevin.sandi/',
             AD_AUTH_USER_SERVICE_URL : '/api/UsuarioADObtenerPorCredenciales/melvin.fallas/password/',
 
-            // Java Services Constants
+            /**
+             * Constantes de los servicios de JAVA
+             */
             SERVER_PORT: ':8080',
             SERVER_URL_VALIDATE_DOC: '/validateDocument',
             SERVER_URL_SEARCH_DOC: '/getDocument',
