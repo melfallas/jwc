@@ -15096,7 +15096,6 @@
         setRoom: function (room) {
             if (room) {
                 try {
-                    // Kevin SWITCH
                    var nav = $('.nav')[0].innerHTML;
                    var getList = $(nav);
                    console.log(getList);
@@ -17396,7 +17395,6 @@
             }
             return translationContainer.contents();
         },
-
        SIMPLE_EMOTICONS: {
         ":)":'smiley.gif',
         ':P': 'tongue.gif',
@@ -17757,11 +17755,20 @@
             }
             return this;
         },
+  /**
+   * Evento _openEmojiPopup definición:
+   * usado para desplegar el contenedor de emoticones
+   */
         _openEmojiPopup: function () {
             this.jq.find(".emoticon_popup").removeClass("hide_popup");
             this.jq.find(".emoticon_popup").addClass("show_popup");
         },
-        //--- Evento para envío de código de emoticon al chat input ---//
+        
+ /**
+   *Evento _sendEmoji definición:
+   *  Evento para envío de código de emoticon al chat input 
+   * @param {var} val - variable que obtiene el valor del emoji para enviarlo
+   */
         _sendEmoji: function (val) {
             var emojiName = $(val.currentTarget).attr("id");
             this.jq.find(".emoticon_popup").removeClass("show_popup");
@@ -17789,6 +17796,10 @@
             var emojiCode = nameEmoticonsEnum[emojiName];
             this.jq.find(".chat_input").val(text + " " + emojiCode + " ");
         },
+   /**
+   *Evento _send definición:
+   *  Evento para la funcionlidad de envio en el chat
+   */     
         _send: function () {
             var textArea = this.jq.find(".chat_input");
             var data = textArea.val();
@@ -17808,6 +17819,12 @@
             }
             textArea.focus();
         },
+
+/**
+   * evento _sendFile definición:
+   *  Evento para envío de archivos
+   * @param {var} val - variable que obtiene el id del valor.
+   */
         _sendFile: function (val) {
             var now = new Date();
             var dateURL = now.getFullYear() + "" + now.getMonth() + "" + now.getDay() + "/" + now.getHours();
@@ -17862,6 +17879,12 @@
                 textArea.focus();
             }
         },
+        /**
+   * evento _handleKeyPress definición:
+   * el evento keyup solo se activará una vez que haya liberado la tecla.
+   * @returns {true} retorna valor de tipo boolean falso
+   * @returns {true} retorna valor de tipo boolean verdadero
+   */
         _handleKeyPress: function (evt) {
             if (evt.keyCode == 13) {
                 this._send();
@@ -17869,6 +17892,12 @@
             }
             return true;
         },
+
+
+        /**
+   * evento _handleKeyUp definición:
+   * El evento que se activa cuando el usuario libera una tecla. Solo se dispara una vez por keypres.
+   */
         _handleKeyUp: function (evt) {
             var data = this.jq.find(".chat_input").val();
             var count = data.length;
@@ -17928,11 +17957,20 @@
 ;
 (function (jabberwerx) {
     jabberwerx.ui.MessageHistory = jabberwerx.ui.JWView.extend({
+/**
+   * Función init definición:
+   * función que  inicializa toda la página web.
+   */
         init: function () {
             this._super();
             this.persistOptions(jabberwerx.ui.JWView.persist_html);
             this.applyEvent("historyMessageAppended");
         },
+
+        /**
+   * Función clearHistory definición:
+   * método utlizado para limpiar el historico.
+   */
         clearHistory: function () {
             this.jq && this.jq.find("div.chat_incoming").empty();
         },
@@ -19906,7 +19944,6 @@
             var totalCount = this._itemsMap.length;
             return {
                 active: activeCount,
-                // Replace Kevin: total: totalCount
                 total: totalCount - $('.unknown').length
             };
         },
@@ -20247,11 +20284,9 @@
             data = data ? data.split(" ")[0].substr(0, 10) : "";
             switch (info.state) {
                 case "composing":
-                    //data = jabberwerx._("{0} is replying", data);
                     data = jabberwerx._("{0} " + jabberwerx.CHAT_BADGE_IS_WRITING_STATE, data);
                     break;
                 case "gone":
-                    //data = jabberwerx._("{0} has left the conversation", data);
                     data = jabberwerx._("{0} " + jabberwerx.CHAT_BADGE_LEFT_CONVERSATION_STATE, data);
                     break;
                 default:
@@ -20537,6 +20572,7 @@
                 tab.requestAttention();
             }
         },
+
         _toggleUsers: function (evt) {
 
             var mucview = $(evt.currentTarget).parent().parent().parent();
